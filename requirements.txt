@@ -1,0 +1,3 @@
+jupyterlab
+ax-platform[notebook,mysql]
+javalang
