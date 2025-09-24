@@ -16,11 +16,5 @@
         "source_basedir": "applications/springblog/source/",
         "analysis_results_basedir": "applications/springblog/results/",
         "github": "https://github.com/Raysmond/SpringBlog"
-    },
-    {
-        "name": "cargo-tracking",
-        "source_basedir": "applications/cargo-tracking/source/",
-        "analysis_results_basedir": "applications/cargo-tracking/results/",
-        "github": "https://github.com/citerus/dddsample-core"
     }
 ]

@@ -4,6 +4,51 @@ from ax.core import RangeParameter, OptimizationConfig, Objective
 from ax.service.utils.instantiation import ObjectiveProperties
 import papermill
 import json
+from statistics import mean
+import scrapbook as sb
+
+
+def parse_metrics(trial_output: dict) -> tuple[float, float]:
+    norm_cohesion = 1 - trial_output["cohesion"]
+    norm_coupling = trial_output["avg_cop"] / trial_output["total_w"]
+    return norm_cohesion, norm_coupling
+
+
+def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float):
+
+    with open("projects.json", "r") as f:
+        projects = json.load(f)
+
+    metrics = []
+
+    for project in projects:
+        papermill.execute_notebook(
+            "1-System_analysis.ipynb",
+            output_path="output.ipynb",
+            parameters={
+                "project": project["name"],
+                "read_from_file": True,
+                "update_refinement": False,
+            }
+        )
+        result = papermill.execute_notebook(
+            "2-Decomposition_optimization.ipynb",
+            output_path="output.ipynb",
+            parameters={
+                "project": project["name"],
+                "w": {
+                    "Calls": w_calls,
+                    "Persists": w_persists,
+                    "References": w_references,
+                    "Extends": w_extends,
+                    "Uses": w_uses
+                }
+            }
+        )
+        metrics.extend(parse_metrics(sb.read_notebook("output.ipynb").scraps.data_dict))
+
+    return mean(metrics)
+
 
 client = AxClient()
 client.create_experiment(
@@ -52,41 +97,7 @@ client.create_experiment(
 )
 
 data = client.get_next_trials(max_trials=1)
+client.complete_trial(trial_index=list(data[0].keys())[0],
+                      raw_data={"decomposition_metric_mean": run_with_weights(**list(data[0].values())[0])})
 
-def parse_metrics(trial_output: dict):
-    cohesion = trial_output["cohesion"]
-    coupeling
-
-
-
-def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float):
-
-    with open("projects.json", "r") as f:
-        projects = json.load(f)
-
-
-    for project in projects:
-        papermill.execute_notebook(
-            "1-System_analysis.ipynb",
-            output_path="output.ipynb",
-            parameters={
-                "project": project["name"],
-                "read_from_file": True,
-                "update_refinement": False,
-            }
-        )
-        papermill.execute_notebook(
-            "2-Decomposition_optimization.ipynb",
-            output_path="output.ipynb",
-            parameters={
-                "project": project["name"],
-                "w": {
-                    "Calls": w_calls,
-                    "Persists": w_persists,
-                    "References": w_references,
-                    "Extends": w_extends,
-                    "Uses": w_uses
-                }
-            }
-        )
 print(data)

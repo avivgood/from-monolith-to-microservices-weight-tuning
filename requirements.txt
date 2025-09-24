@@ -5,3 +5,7 @@ six~=1.17.0
 networkx~=3.5
 ipython~=9.5.0
 papermill
+pygraphviz
+gurobipy
+python-louvain
+scrapbook
