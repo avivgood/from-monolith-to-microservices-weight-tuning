@@ -92,12 +92,18 @@ client.create_experiment(
         "decomposition_metric_mean": ObjectiveProperties(
             minimize=True
         )
-    }
+    },
+    parameter_constraints=[  # prevents all being 0
+        "w_persists + w_calls + w_uses + w_references + w_extends >= 1.0",
+    ],
 
 )
 
-data = client.get_next_trials(max_trials=1)
-client.complete_trial(trial_index=list(data[0].keys())[0],
-                      raw_data={"decomposition_metric_mean": run_with_weights(**list(data[0].values())[0])})
+for _ in range(25):
+    data = client.get_next_trials(max_trials=1)
+    client.complete_trial(trial_index=list(data[0].keys())[0],
+                          raw_data={"decomposition_metric_mean": run_with_weights(**list(data[0].values())[0])})
 
+print(client.get_best_parameters())
+print(client.get_best_trial())
 print(data)
