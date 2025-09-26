@@ -15,40 +15,42 @@ def parse_metrics(trial_output: dict) -> tuple[float, float]:
 
 
 def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float):
+    try:
+        with open("projects.json", "r") as f:
+            projects = json.load(f)
 
-    with open("projects.json", "r") as f:
-        projects = json.load(f)
+        metrics = []
 
-    metrics = []
-
-    for project in projects:
-        papermill.execute_notebook(
-            "1-System_analysis.ipynb",
-            output_path="output.ipynb",
-            parameters={
-                "project": project["name"],
-                "read_from_file": True,
-                "update_refinement": False,
-            }
-        )
-        result = papermill.execute_notebook(
-            "2-Decomposition_optimization.ipynb",
-            output_path="output.ipynb",
-            parameters={
-                "project": project["name"],
-                "w": {
-                    "Calls": w_calls,
-                    "Persists": w_persists,
-                    "References": w_references,
-                    "Extends": w_extends,
-                    "Uses": w_uses
+        for project in projects:
+            papermill.execute_notebook(
+                "1-System_analysis.ipynb",
+                output_path="output.ipynb",
+                parameters={
+                    "project": project["name"],
+                    "read_from_file": True,
+                    "update_refinement": False,
                 }
-            }
-        )
-        metrics.extend(parse_metrics(sb.read_notebook("output.ipynb").scraps.data_dict))
+            )
+            papermill.execute_notebook(
+                "2-Decomposition_optimization.ipynb",
+                output_path="output.ipynb",
+                parameters={
+                    "project": project["name"],
+                    "w": {
+                        "Calls": w_calls,
+                        "Persists": w_persists,
+                        "References": w_references,
+                        "Extends": w_extends,
+                        "Uses": w_uses
+                    }
+                }
+            )
+            metrics.extend(parse_metrics(sb.read_notebook("output.ipynb").scraps.data_dict))
 
-    return mean(metrics)
-
+        return mean(metrics)
+    except Exception as e:
+        print(e)
+        return 1
 
 client = AxClient()
 client.create_experiment(
@@ -60,31 +62,31 @@ client.create_experiment(
         {
             "name": "w_persists",
             "type": "range",
-            "bounds": [0.0, 1.0],
+            "bounds": [0.001, 1.0],
             "value_type": "float"
         },
         {
             "name": "w_calls",
             "type": "range",
-            "bounds": [0.0, 1.0],
+            "bounds": [0.001, 1.0],
             "value_type": "float"
         },
         {
             "name": "w_uses",
             "type": "range",
-            "bounds": [0.0, 1.0],
+            "bounds": [0.001, 1.0],
             "value_type": "float"
         },
         {
             "name": "w_references",
             "type": "range",
-            "bounds": [0.0, 1.0],
+            "bounds": [0.001, 1.0],
             "value_type": "float"
         },
         {
             "name": "w_extends",
             "type": "range",
-            "bounds": [0.0, 1.0],
+            "bounds": [0.001, 1.0],
             "value_type": "float"
         }
     ],
