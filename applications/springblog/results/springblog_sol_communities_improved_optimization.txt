@@ -1,16 +1,15 @@
-Found 2 microservices
-Total coupling value: 0.0631907353766934 (0.0315953676883467 avg.)
-Cohesion value: 0.9990034971304096
+Found 1 microservices
+Total coupling value: 4.618527782440651e-14 (4.618527782440651e-14 avg.)
+Cohesion value: 1.0
 
 Entities in Microservice 0:
-- SettingsForm
-- Setting
-- BaseModel
-Entities in Microservice 1:
 - UserForm
 - PostForm
+- SettingsForm
 - Message
+- Setting
 - User
+- BaseModel
 - Post
 - Tag
 

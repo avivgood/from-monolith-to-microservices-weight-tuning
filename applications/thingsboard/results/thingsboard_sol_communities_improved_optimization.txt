@@ -1,34 +1,78 @@
 Found 10 microservices
-Total coupling value: 13.634530731400218 (1.3634530731400218 avg.)
-Cohesion value: 0.8784052256695227
+Total coupling value: 10.04660435059111 (1.004660435059111 avg.)
+Cohesion value: 0.9071514510948164
 
 Entities in Microservice 0:
+- TbCreateRelationNodeConfiguration
+- TbDeleteRelationNodeConfiguration
+- TbAbstractRelationActionNodeConfiguration
+- TbCreateRelationNode
+- TbDeleteRelationNode
+- AbstractRelationInsertRepository
+Entities in Microservice 1:
+- SessionException
+- SessionAuthException
+- AbstractComponentDescriptorInsertRepository
+- CassandraAbstractAsyncDao
+- CassandraAbstractDao
+- CassandraAbstractModelDao
+Entities in Microservice 2:
+- TbMsgTypeSwitchNode
+- TbOriginatorTypeSwitchNode
+- TbCopyAttributesToEntityViewNode
+- TbAckNode
+- EmptyNodeConfiguration
+- AbstractEventInsertRepository
+- DashboardEntity
+Entities in Microservice 3:
+- AbstractCleanUpService
+- AbstractTimeseriesCleanUpService
 - TbMsgTypeFilterNodeConfiguration
-- TbJsSwitchNodeConfiguration
-- TbJsSwitchNode
-- TbCheckAlarmStatusNode
-- TbOriginatorTypeFilterNodeConfiguration
 - TbMsgTypeFilterNode
-- TbOriginatorTypeFilterNode
-- TbCheckAlarmStatusNodeConfig
-- TbSendEmailNode
-- TbMsgToEmailNodeConfiguration
-- TbMsgToEmailNode
-- TbSendEmailNodeConfiguration
 - TbLogNode
-- TbAssignToCustomerNode
+- TbAbstractAlarmNodeConfiguration
 - TbLogNodeConfiguration
-- TbUnassignFromCustomerNodeConfiguration
-- TbUnassignFromCustomerNode
-- TbAbstractRelationActionNode
-- TbAbstractCustomerActionNodeConfiguration
-- TbAssignToCustomerNodeConfiguration
+- TbCreateAlarmNodeConfiguration
+- TbCreateAlarmNode
+- TbClearAlarmNodeConfiguration
+- TbClearAlarmNode
+- TbSqsNode
+- TbSqsNodeConfiguration
 - TbGetTenantDetailsNode
 - TbAbstractGetEntityDetailsNodeConfiguration
 - TbGetTenantDetailsNodeConfiguration
 - TbGetCustomerDetailsNode
 - TbGetCustomerDetailsNodeConfiguration
-- UpdateMessage
+- PsqlPartition
+Entities in Microservice 4:
+- TbJsSwitchNodeConfiguration
+- TbCheckMessageNodeConfiguration
+- TbCheckMessageNode
+- TbJsSwitchNode
+- TbCheckAlarmStatusNode
+- TbOriginatorTypeFilterNodeConfiguration
+- TbCheckRelationNodeConfiguration
+- TbJsFilterNodeConfiguration
+- TbOriginatorTypeFilterNode
+- TbCheckAlarmStatusNodeConfig
+- TbJsFilterNode
+- TbCheckRelationNode
+- TbSendEmailNode
+- TbSendEmailNodeConfiguration
+- TbAssignToCustomerNode
+- TbUnassignFromCustomerNodeConfiguration
+- TbUnassignFromCustomerNode
+- TbAbstractCustomerActionNodeConfiguration
+- TbSaveToCustomCassandraTableNode
+- TbAssignToCustomerNodeConfiguration
+- TbSaveToCustomCassandraTableNodeConfiguration
+- TbRabbitMqNode
+- TbRabbitMqNodeConfiguration
+- TbGetTelemetryNode
+- TbGetTelemetryNodeConfiguration
+- TbKafkaNodeConfiguration
+- TbKafkaNode
+- CoapTransportResource
 - MqttClientImpl
 - MqttChannelHandler
 - MqttClientConfig
@@ -39,92 +83,49 @@ Entities in Microservice 0:
 - MqttIncomingQos2Publish
 - MqttPendingUnsubscription
 - MqttLastWill
-- AbstractRelationInsertRepository
-- EntityContainer
-Entities in Microservice 1:
-- TbCheckRelationNodeConfiguration
-- TbJsFilterNodeConfiguration
-- TbJsFilterNode
-- TbCheckRelationNode
-- TbCreateRelationNodeConfiguration
-- TbDeleteRelationNodeConfiguration
-- TbAbstractRelationActionNodeConfiguration
-- TbCreateRelationNode
-- TbDeleteRelationNode
-- TbGpsGeofencingActionNode
-- TbGpsGeofencingActionNodeConfiguration
-- EntityGeofencingState
-- TbGpsGeofencingFilterNode
-- TbGpsGeofencingFilterNodeConfiguration
-- AbstractComponentDescriptorInsertRepository
-- CassandraAbstractAsyncDao
-- CassandraAbstractDao
-- CassandraAbstractModelDao
-Entities in Microservice 2:
-- SessionTimeoutCheckMsg
-- TbPubSubNodeConfiguration
-- TbPubSubNode
-- TbMsgTypeSwitchNode
-- TbOriginatorTypeSwitchNode
-- TbCopyAttributesToEntityViewNode
-- TbSaveToCustomCassandraTableNode
-- TbSaveToCustomCassandraTableNodeConfiguration
-- TbSnsNode
-- TbSnsNodeConfiguration
-- TbAckNode
-- EmptyNodeConfiguration
-- SessionException
-- SessionAuthException
-- AbstractEventInsertRepository
-Entities in Microservice 3:
-- TbRabbitMqNode
-- TbRabbitMqNodeConfiguration
-- CoapTransportResource
-- PsqlPartition
-Entities in Microservice 4:
-- AbstractCleanUpService
-- AbstractTimeseriesCleanUpService
-- TbSendRpcRequestNodeConfiguration
-- TbSendRPCRequestNode
-- TbAbstractAlarmNodeConfiguration
-- TbCreateAlarmNodeConfiguration
-- TbCreateAlarmNode
-- TbClearAlarmNodeConfiguration
-- TbClearAlarmNode
-- TbMsgAttributesNodeConfiguration
-- TbMsgAttributesNode
-- TbRestApiCallNodeConfiguration
-- TbRestApiCallNode
-- TbHttpClient
-- TbKafkaNodeConfiguration
-- TbKafkaNode
+- TbSqlBlockingQueueParams
+- TbSqlBlockingQueue
+- TbSqlBlockingQueueWrapper
 - AttributeKvEntity
 Entities in Microservice 5:
-- ThingsboardErrorResponse
-- ThingsboardCredentialsExpiredResponse
-- TbCheckpointNodeConfiguration
-- TbCheckpointNode
+- TbSnsNode
+- TbSnsNodeConfiguration
 - DefaultTbQueueMsgHeaders
 - DefaultTbQueueMsg
+- JsonStringSqlTypeDescriptor
+- AbstractJsonSqlTypeDescriptor
 - RelationCompositeKey
 Entities in Microservice 6:
+- AbstractNashornJsInvokeService
+- AbstractJsInvokeService
+- ThingsboardErrorResponse
+- ThingsboardCredentialsExpiredResponse
+- TbSendRpcRequestNodeConfiguration
+- TbSendRPCReplyNode
+- TbSendRpcReplyNodeConfiguration
+- TbSendRPCRequestNode
 - TbMqttNodeConfiguration
 - TbMqttNode
 - TbAzureIotHubNode
 - TbAzureIotHubNodeConfiguration
+- TbAbstractRelationActionNode
+- TbMsgTimeseriesNode
+- TbMsgTimeseriesNodeConfiguration
+- TbRestApiCallNodeConfiguration
+- TbRestApiCallNode
+- TbHttpClient
+- TbGetOriginatorFieldsNode
+- TbGetOriginatorFieldsConfiguration
+- EntityContainer
 - RelationEntity
 Entities in Microservice 7:
-- TbCheckMessageNodeConfiguration
-- TbCheckMessageNode
-- TbSqsNode
-- TbSqsNodeConfiguration
-- TbGetTelemetryNode
-- TbGetTelemetryNodeConfiguration
-- TbSqlBlockingQueueParams
+- TbMsgToEmailNodeConfiguration
+- TbMsgToEmailNode
+- TbMsgAttributesNodeConfiguration
+- TbMsgAttributesNode
+- UpdateMessage
 - JpaAbstractDao
-- TbSqlBlockingQueue
 - JpaAbstractDaoListeningExecutorService
-- TbSqlBlockingQueueWrapper
 - AbstractSqlTimeseriesDao
 - AbstractChunkedAggregationTimeseriesDao
 - AbstractTsKvEntity
@@ -214,16 +215,14 @@ Entities in Microservice 8:
 - StatsActor
 - StatsPersistMsg
 - AppActor
-- TbSendRPCReplyNode
-- TbSendRpcReplyNodeConfiguration
+- TbPubSubNodeConfiguration
+- TbPubSubNode
 - TbAbstractCustomerActionNode
 - TbMsgDelayNode
 - TbMsgDelayNodeConfiguration
 - RelationsQuery
 - DeviceRelationsQuery
-- TbMsgTimeseriesNode
 - TelemetryNodeCallback
-- TbMsgTimeseriesNodeConfiguration
 - TbMsgGeneratorNode
 - TbMsgGeneratorNodeConfiguration
 - TbTransformNodeConfiguration
@@ -401,7 +400,6 @@ Entities in Microservice 8:
 - ModelConstants
 - AttributeKvCompositeKey
 - DeviceEntity
-- DashboardEntity
 - AdminSettingsEntity
 - WidgetTypeEntity
 - TenantEntity
@@ -421,12 +419,14 @@ Entities in Microservice 8:
 - DataValidationException
 - IncorrectParameterException
 Entities in Microservice 9:
-- AbstractNashornJsInvokeService
-- AbstractJsInvokeService
-- TbGetOriginatorFieldsNode
-- TbGetOriginatorFieldsConfiguration
-- JsonStringSqlTypeDescriptor
-- AbstractJsonSqlTypeDescriptor
+- SessionTimeoutCheckMsg
+- TbGpsGeofencingActionNode
+- TbGpsGeofencingActionNodeConfiguration
+- EntityGeofencingState
+- TbGpsGeofencingFilterNode
+- TbGpsGeofencingFilterNodeConfiguration
+- TbCheckpointNodeConfiguration
+- TbCheckpointNode
 - EventEntity
 
 

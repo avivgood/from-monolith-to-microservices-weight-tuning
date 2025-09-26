@@ -1,6 +1,6 @@
 Found 4 microservices
-Total coupling value: 4.647334924300893 (1.1618337310752231 avg.)
-Cohesion value: 0.9325953228633759
+Total coupling value: 3.5015684118114905 (0.8753921029528726 avg.)
+Cohesion value: 0.9214605341575679
 
 Entities in Microservice 0:
 - Page
@@ -15,7 +15,6 @@ Entities in Microservice 0:
 - UserWithToken
 - UserData
 - NewArticleParam
-- UpdateArticleParam
 - User
 - Comment
 - LoginParam
@@ -24,10 +23,11 @@ Entities in Microservice 0:
 - ErrorResourceSerializer
 - ErrorResource
 - InvalidAuthenticationException
-- ResourceNotFoundException
 Entities in Microservice 1:
 - FollowRelation
+- ResourceNotFoundException
 Entities in Microservice 2:
+- UpdateArticleParam
 - Article
 - Tag
 Entities in Microservice 3:
@@ -37,5 +37,5 @@ Entities in Microservice 3:
 
 # of method calls crossing microservices: 4
 # of entity references crossing microservices: 0
-# of entity usages crossing microservices: 9
+# of entity usages crossing microservices: 10
 # of methods persisting entities of other microservices: 1
