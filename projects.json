@@ -3,18 +3,105 @@
         "name": "spring-petclinic",
         "source_basedir": "applications/spring-petclinic/source/",
         "analysis_results_basedir": "applications/spring-petclinic/results/",
-        "github": "https://github.com/spring-projects/spring-petclinic"
+        "github": "https://github.com/spring-projects/spring-petclinic",
+        "has_refinement": true
     },
     {
         "name": "jpetstore",
         "source_basedir": "applications/jpetstore/source/",
         "analysis_results_basedir": "applications/jpetstore/results/",
-        "github": "https://github.com/mybatis/jpetstore-6"
+        "github": "https://github.com/mybatis/jpetstore-6",
+        "has_refinement": true
     },
     {
         "name": "springblog",
         "source_basedir": "applications/springblog/source/",
         "analysis_results_basedir": "applications/springblog/results/",
-        "github": "https://github.com/Raysmond/SpringBlog"
-    }
+        "github": "https://github.com/Raysmond/SpringBlog",
+        "has_refinement": true
+    },
+    {
+    "name": "airsonic-advanced-106",
+    "source_basedir": "applications/airsonic-advanced-106/source/",
+    "analysis_results_basedir": "applications/airsonic-advanced-106/results/",
+    "github": "https://github.com/airsonic-advanced/airsonic-advanced",
+      "has_refinement": false
+  },
+  {
+    "name": "jhipster-sample-application",
+    "source_basedir": "applications/jhipster-sample-application/source/",
+    "analysis_results_basedir": "applications/jhipster-sample-application/results/",
+    "github": "https://github.com/jhipster/jhipster-sample-application",
+    "has_refinement": false
+  },
+  {
+    "name": "shopizer-2x",
+    "source_basedir": "applications/shopizer-2x/source/",
+    "analysis_results_basedir": "applications/shopizer-2x/results/",
+    "github": "https://github.com/shopizer-ecommerce/shopizer",
+    "has_refinement": false
+  },
+  {
+    "name": "broadleaf-commerce",
+    "source_basedir": "applications/broadleaf-commerce/source/",
+    "analysis_results_basedir": "applications/broadleaf-commerce/results/",
+    "github": "https://github.com/BroadleafCommerce/BroadleafCommerce",
+    "has_refinement": false
+  },
+  {
+    "name": "mall",
+    "source_basedir": "applications/mall/source/",
+    "analysis_results_basedir": "applications/mall/results/",
+    "github": "https://github.com/macrozheng/mall",
+    "has_refinement": false
+  },
+  {
+    "name": "spring-boot-admin",
+    "source_basedir": "applications/spring-boot-admin/source/",
+    "analysis_results_basedir": "applications/spring-boot-admin/results/",
+    "github": "https://github.com/codecentric/spring-boot-admin",
+    "has_refinement": false
+  },
+  {
+    "name": "dddsample-core",
+    "source_basedir": "applications/dddsample-core/source/",
+    "analysis_results_basedir": "applications/dddsample-core/results/",
+    "github": "https://github.com/citerus/dddsample-core",
+    "has_refinement": false
+  },
+  {
+    "name": "realworld-spring",
+    "source_basedir": "applications/realworld-spring/source/",
+    "analysis_results_basedir": "applications/realworld-spring/results/",
+    "github": "https://github.com/gothinkster/spring-boot-realworld-example-app",
+    "has_refinement": false
+  },
+  {
+    "name": "thingsboard",
+    "source_basedir": "applications/thingsboard/source/",
+    "analysis_results_basedir": "applications/thingsboard/results/",
+    "github": "https://github.com/thingsboard/thingsboard",
+    "has_refinement": false
+  },
+  {
+    "name": "JeecgBoot",
+    "source_basedir": "applications/JeecgBoot/source/",
+    "analysis_results_basedir": "applications/JeecgBoot/results/",
+    "github": "https://github.com/jeecgboot/jeecg-boot",
+    "has_refinement": false
+  },
+  {
+    "name": "RuoYi-Vue",
+    "source_basedir": "applications/RuoYi-Vue/source/",
+    "analysis_results_basedir": "applications/RuoYi-Vue/results/",
+    "github": "https://github.com/yangzongzhuan/RuoYi-Vue",
+    "has_refinement": false
+  },
+  {
+    "name": "zipkin",
+    "source_basedir": "applications/zipkin/source/",
+    "analysis_results_basedir": "applications/zipkin/results/",
+    "github": "https://github.com/openzipkin/zipkin",
+    "has_refinement": false
+  }
 ]

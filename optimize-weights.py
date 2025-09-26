@@ -1,3 +1,5 @@
+from concurrent.futures.process import ProcessPoolExecutor
+import itertools
 from ax import RangeParameterConfig
 from ax.service.ax_client import AxClient
 from ax.core import RangeParameter, OptimizationConfig, Objective
@@ -8,46 +10,48 @@ from statistics import mean
 import scrapbook as sb
 
 
-def parse_metrics(trial_output: dict) -> tuple[float, float]:
+def parse_metrics(trial_output: dict) -> float:
     norm_cohesion = 1 - trial_output["cohesion"]
     norm_coupling = trial_output["avg_cop"] / trial_output["total_w"]
-    return norm_cohesion, norm_coupling
+    return mean([norm_cohesion, norm_coupling])
 
+def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float):
+    papermill.execute_notebook(
+        "1-System_analysis.ipynb",
+        output_path=f"outputs/output_step_1_{project["name"]}.ipynb",
+        parameters={
+            "project": project["name"],
+            "read_from_file": project["has_refinement"],
+            "update_refinement": False,
+        }
+    )
+    papermill.execute_notebook(
+        "2-Decomposition_optimization.ipynb",
+        output_path=f"outputs/output_step_2_{project["name"]}.ipynb",
+        parameters={
+            "project": project["name"],
+            "w": {
+                "Calls": w_calls,
+                "Persists": w_persists,
+                "References": w_references,
+                "Extends": w_extends,
+                "Uses": w_uses
+            }
+        }
+    )
+    return parse_metrics(sb.read_notebook(f"outputs/output_step_1_{project["name"]}.ipynb").scraps.data_dict)
 
-def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float):
+def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float):
+    w_extends = 1 - w_persists - w_calls - w_uses - w_references
     try:
         with open("projects.json", "r") as f:
             projects = json.load(f)
 
-        metrics = []
+        with ProcessPoolExecutor(max_workers=10) as executor:
+            results = executor.map(run_and_collect_metrics, projects, itertools.repeat(w_persists), itertools.repeat(w_calls), itertools.repeat(w_uses), itertools.repeat(w_references), itertools.repeat(w_extends))
 
-        for project in projects:
-            papermill.execute_notebook(
-                "1-System_analysis.ipynb",
-                output_path="output.ipynb",
-                parameters={
-                    "project": project["name"],
-                    "read_from_file": True,
-                    "update_refinement": False,
-                }
-            )
-            papermill.execute_notebook(
-                "2-Decomposition_optimization.ipynb",
-                output_path="output.ipynb",
-                parameters={
-                    "project": project["name"],
-                    "w": {
-                        "Calls": w_calls,
-                        "Persists": w_persists,
-                        "References": w_references,
-                        "Extends": w_extends,
-                        "Uses": w_uses
-                    }
-                }
-            )
-            metrics.extend(parse_metrics(sb.read_notebook("output.ipynb").scraps.data_dict))
+        return mean(results)
 
-        return mean(metrics)
     except Exception as e:
         print(e)
         return 1
@@ -62,31 +66,25 @@ client.create_experiment(
         {
             "name": "w_persists",
             "type": "range",
-            "bounds": [0.001, 1.0],
+            "bounds": [0.000001, 1.0],
             "value_type": "float"
         },
         {
             "name": "w_calls",
             "type": "range",
-            "bounds": [0.001, 1.0],
+            "bounds": [0.000001, 1.0],
             "value_type": "float"
         },
         {
             "name": "w_uses",
             "type": "range",
-            "bounds": [0.001, 1.0],
+            "bounds": [0.000001, 1.0],
             "value_type": "float"
         },
         {
             "name": "w_references",
             "type": "range",
-            "bounds": [0.001, 1.0],
-            "value_type": "float"
-        },
-        {
-            "name": "w_extends",
-            "type": "range",
-            "bounds": [0.001, 1.0],
+            "bounds": [0.000001, 1.0],
             "value_type": "float"
         }
     ],
@@ -96,7 +94,7 @@ client.create_experiment(
         )
     },
     parameter_constraints=[  # prevents all being 0
-        "w_persists + w_calls + w_uses + w_references + w_extends >= 1.0",
+        "w_persists + w_calls + w_uses + w_references <= 0.99999",
     ],
 
 )
