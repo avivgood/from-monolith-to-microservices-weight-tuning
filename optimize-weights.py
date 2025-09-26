@@ -1,5 +1,6 @@
 from concurrent.futures.process import ProcessPoolExecutor
 import itertools
+import sys
 from ax import RangeParameterConfig
 from ax.service.ax_client import AxClient
 from ax.core import RangeParameter, OptimizationConfig, Objective
@@ -23,6 +24,7 @@ def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_
             "project": project["name"],
             "read_from_file": project["has_refinement"],
             "update_refinement": False,
+            "headless": True
         }
     )
     papermill.execute_notebook(
@@ -36,10 +38,13 @@ def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_
                 "References": w_references,
                 "Extends": w_extends,
                 "Uses": w_uses
-            }
+            },
+            "headless": True
         }
     )
-    return parse_metrics(sb.read_notebook(f"outputs/output_step_1_{project["name"]}.ipynb").scraps.data_dict)
+    avg = parse_metrics(sb.read_notebook(f"outputs/output_step_2_{project["name"]}.ipynb").scraps.data_dict)
+    print(f"finished executing {project['name']}, {avg=}", file=sys.stderr)
+    return avg
 
 def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float):
     w_extends = 1 - w_persists - w_calls - w_uses - w_references
@@ -50,11 +55,12 @@ def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_referen
         with ProcessPoolExecutor(max_workers=10) as executor:
             results = executor.map(run_and_collect_metrics, projects, itertools.repeat(w_persists), itertools.repeat(w_calls), itertools.repeat(w_uses), itertools.repeat(w_references), itertools.repeat(w_extends))
 
-        return mean(results)
+        return mean(list(results))
 
     except Exception as e:
-        print(e)
-        return 1
+        print(e, file=sys.stderr)
+        raise
+
 
 client = AxClient()
 client.create_experiment(
