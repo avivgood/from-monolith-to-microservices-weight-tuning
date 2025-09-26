@@ -1,0 +1,26 @@
+Found 1 microservices
+Total coupling value: 1.7763568394002505e-14 (1.7763568394002505e-14 avg.)
+Cohesion value: 1.0
+
+Entities in Microservice 0:
+- UserNotActivatedException
+- PasswordChangeDTO
+- UserDTO
+- Authority
+- AbstractAuditingEntity
+- PersistentAuditEvent
+- User
+- EmailAlreadyUsedException
+- InvalidPasswordException
+- BadRequestAlertException
+- LoginAlreadyUsedException
+- LoginVM
+- ManagedUserVM
+- KeyAndPasswordVM
+
+
+
+# of method calls crossing microservices: 0
+# of entity references crossing microservices: 0
+# of entity usages crossing microservices: 0
+# of methods persisting entities of other microservices: 0
