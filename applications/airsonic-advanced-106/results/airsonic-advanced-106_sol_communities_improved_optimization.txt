@@ -1,0 +1,113 @@
+Found 13 microservices
+Total coupling value: 168.6401564943735 (12.972319730336425 avg.)
+Cohesion value: 0.7877724282182665
+
+Entities in Microservice 0:
+- LastFmCache
+- ConfigurationPropertiesService
+- SonosSoapFault
+- PodcastChannel
+- UserSettingsValidator
+Entities in Microservice 1:
+- LyricsInfo
+- ArtistInfo
+- UploadInfo
+- SimilarArtist
+- NowPlayingInfo
+- MediaFileEntry
+- AlbumList
+- LastFMScrobbler
+- ListenBrainzScrobbler
+- MetaDataParser
+- MetaData
+- LambdaUtils
+- ArtistBio
+- MediaFile
+- PlayStatus
+- InternetRadio
+- MusicIndex
+- TransferStatus
+- SearchCriteria
+- SearchResult
+- PlayQueue
+- MusicFolderContent
+- AlbumNotes
+- InternetRadioSource
+- LastFmCoverArt
+- Artist
+- MediaFileComparator
+- Album
+- KnownLengthInputStreamResource
+- SearchCommand
+- MonitoredDiskFileItemFactory
+- PlayQueueInputStream
+- ShoutCastOutputStream
+Entities in Microservice 2:
+- PodcastEpisode
+- WebApp
+- ServletDef
+- ServletMappingDef
+Entities in Microservice 3:
+- PlayQueueInfo
+- RESTFilter
+- AudioPlayer
+- PlayerTest
+- Player
+- Transcoding
+- VideoTranscodingSettings
+- EnumHolder
+- PlayerSettingsCommand
+- JAXBWriter
+- TranscodeInputStream
+Entities in Microservice 4:
+- SaltedTokenPasswordEncoder
+- SaltToken
+- UserCredential
+- CredentialsManagementCommand
+Entities in Microservice 5:
+- SavedPlayQueue
+Entities in Microservice 6:
+- RandomSearchCriteria
+- User
+- MusicFolder
+- UserSettingsCommand
+Entities in Microservice 7:
+- Playlist
+Entities in Microservice 8:
+- Bookmark
+Entities in Microservice 9:
+- RESTRequestParameterProcessingFilter
+- SonosServiceRegistration
+- CustomContentDirectory
+- MSMediaReceiverRegistrarService
+- MediaLibraryStatistics
+- Version
+- UserSettings
+- Avatar
+- Theme
+- PersonalSettingsCommand
+- DatabaseSettingsCommand
+- PodcastSettingsCommand
+- AdvancedSettingsCommand
+- GeneralSettingsCommand
+- MusicFolderSettingsCommand
+Entities in Microservice 10:
+- JWTAuthenticationToken
+- MediaFileWithUrlInfo
+- Share
+- MonitoredOutputStream
+- MonitoredDiskFileItem
+Entities in Microservice 11:
+- UpnpContentProcessor
+- Genres
+- Genre
+Entities in Microservice 12:
+- HexPasswordEncoder
+- AbstractDao
+
+
+
+# of method calls crossing microservices: 460
+# of entity references crossing microservices: 10
+# of entity usages crossing microservices: 234
+# of methods persisting entities of other microservices: 58
