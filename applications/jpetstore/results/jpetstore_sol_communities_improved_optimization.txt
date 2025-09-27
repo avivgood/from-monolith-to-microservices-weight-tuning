@@ -1,6 +1,6 @@
 Found 5 microservices
-Total coupling value: 1.2948119430051293 (0.25896238860102583 avg.)
-Cohesion value: 0.9740370997704625
+Total coupling value: 0.48285406758386884 (0.09657081351677377 avg.)
+Cohesion value: 0.9863911915508033
 
 Entities in Microservice 0:
 - Category
@@ -19,7 +19,7 @@ Entities in Microservice 4:
 
 
 
-# of method calls crossing microservices: 2
+# of method calls crossing microservices: 3
 # of entity references crossing microservices: 1
 # of entity usages crossing microservices: 1
-# of methods persisting entities of other microservices: 1
+# of methods persisting entities of other microservices: 0

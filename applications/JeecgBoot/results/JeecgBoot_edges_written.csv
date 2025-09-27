@@ -1589,6 +1589,12 @@ api(JobApiController),Calls,equals(JobApiController)
 api(JobApiController),Calls,equals(JobApiController)
 api(JobApiController),Calls,equals(JobApiController)
 postHandle(CookieInterceptor),Calls,getName(CookieInterceptor)
+findAll(CustomInMemoryHttpTraceRepository),Calls,filter(CustomInMemoryHttpTraceRepository)
+findAll(CustomInMemoryHttpTraceRepository),Calls,sort(CustomInMemoryHttpTraceRepository)
+add(CustomInMemoryHttpTraceRepository),Calls,equals(CustomInMemoryHttpTraceRepository)
+sort(CustomInMemoryHttpTraceRepository),Calls,equalsIgnoreCase(CustomInMemoryHttpTraceRepository)
+sort(CustomInMemoryHttpTraceRepository),Calls,equalsIgnoreCase(CustomInMemoryHttpTraceRepository)
+sort(CustomInMemoryHttpTraceRepository),Calls,equalsIgnoreCase(CustomInMemoryHttpTraceRepository)
 create(OnlineBaseExtApiFallbackFactory),Uses,OnlineBaseExtApiFallback
 create(SysBaseAPIFallbackFactory),Uses,SysBaseAPIFallback
 getRedisInfo(RedisServiceImpl),Uses,RedisInfo

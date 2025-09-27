@@ -1,0 +1,85 @@
+Found 4 microservices
+Total coupling value: 5.319121476026394 (1.3297803690065986 avg.)
+Cohesion value: 0.6803343823593463
+
+Entities in Microservice 0:
+- HipchatNotifier
+- RemindingNotifier
+- LetsChatNotifier
+- AbstractEventNotifier
+- DingTalkNotifier
+- TelegramNotifier
+- LoggingNotifier
+- OpsGenieNotifier
+- DiscordNotifier
+- MicrosoftTeamsNotifier
+- SlackNotifier
+- PagerdutyNotifier
+- MailNotifier
+- AbstractStatusChangeNotifier
+- ApplicationNameNotificationFilter
+- FilteringNotifier
+- AbstractNotificationFilter
+- InstanceIdNotificationFilter
+- ExpiringNotificationFilter
+- NotificationFilterController
+- InstanceId
+Entities in Microservice 1:
+- HazelcastNotificationTrigger
+- NotificationTrigger
+- Endpoints
+- Endpoint
+- Info
+- StatusInfo
+- Registration
+- InstanceEvent
+- InstanceEndpointsDetectedEvent
+- InstanceStatusChangedEvent
+- InstanceRegistrationUpdatedEvent
+- InstanceDeregisteredEvent
+- InstanceInfoChangedEvent
+- InstanceRegisteredEvent
+- InMemoryEventStore
+- ConcurrentMapEventStore
+- HazelcastEventStore
+- InstanceEventPublisher
+- RegistrationDeserializer
+- HttpHeaderFilter
+- ApplicationsController
+- InstanceWebProxy
+- InstancesController
+- InstanceWebClient
+- CookieStoreCleanupTrigger
+- InstancesProxyController
+- ApplicationRegistry
+- AbstractEventHandler
+- EndpointDetectionTrigger
+- IntervalCheck
+- StatusUpdater
+- InfoUpdater
+- InfoUpdateTrigger
+- InstanceRegistry
+- StatusUpdateTrigger
+- EndpointDetector
+- ApiMediaTypeHandler
+- ProbeEndpointsStrategy
+- QueryIndexEndpointStrategy
+Entities in Microservice 2:
+- BuildVersion
+- Tags
+- Application
+- Instance
+- AdminServerProperties
+- AdminServerAutoConfiguration
+Entities in Microservice 3:
+- OptimisticLockingException
+- InstanceWebClientException
+- ResolveEndpointException
+- ResolveInstanceException
+
+
+
+# of method calls crossing microservices: 1
+# of entity references crossing microservices: 11
+# of entity usages crossing microservices: 0
+# of methods persisting entities of other microservices: 7

@@ -1,38 +1,56 @@
 Found 57 microservices
-Total coupling value: 46.73586543172382 (0.819927463714453 avg.)
-Cohesion value: 0.9571291234304415
+Total coupling value: 45.400424251518416 (0.7964986710792704 avg.)
+Cohesion value: 0.9317934900392125
 
 Entities in Microservice 0:
-- LocaleType
+- AbstractPostUpdateCustomerExtensionHandler
 - CustomerAddressType
 - CustomerPhoneImpl
-- GeolocationDTO
+- AbstractResourcePurgeExtensionHandler
+- AbstractSiteMapExtensionHandler
+- AbstractOfferValueModifierExtensionHandler
+- AbstractOfferServiceExtensionHandler
 - OfferTimeZoneType
 - OfferType
 - StackabilityType
 - OfferItemRestrictionRuleType
 - OfferRuleType
 - OfferProrationType
-- StructuredContentCartRuleProcessor
-- PageCartRuleProcessor
-- AvailabilityStatusType
+- LegacyOfferUsesImpl
+- WeaveLegacyOfferUses
+- DefaultOfferCodeDaoExtensionHandler
+- AbstractValidateCheckoutActivityExtensionHandler
+- AbstractPostUpdateOrderExtensionHandler
+- AbstractOrderServiceExtensionHandler
+- AbstractMergeCartServiceExtensionHandler
+- AbstractOrderItemServiceExtensionHandler
+- AbstractValidateAddRequestActivityExtensionHandler
+- AbstractOrderDaoExtensionHandler
+- AbstractSolrSearchServiceExtensionHandler
+- SolrJSONFacet
+- AbstractSolrIndexServiceExtensionHandler
+- AbstractInventoryServiceExtensionHandler
+- AbstractCatalogServiceExtensionHandler
+- AbstractProductProcessorExtensionHandler
 - ProductOptionType
-- SkuFeeType
-- AbstractMergeBeanPostProcessor
-- EarlyStageMergeBeanPostProcessor
-- LateStageMergeBeanPostProcessor
-- ThreadLocalManager
-- PaymentAdditionalFieldType
-- PaymentDeclineType
-- StructuredContentDTOWrapper
-- StructuredContentDTO
-- ItemCriteriaDTO
-- PageDTO
-- NullPageDTO
-- TranslationConsiderationContext
-- ResourceTagAttributes
-Entities in Microservice 1:
-- CustomerPaymentImpl
+- AbstractCategoryDaoExtensionHandler
+- AbstractProductDaoExtensionHandler
+- AbstractSkuDaoExtensionHandler
+- BaseProcessor
+- AbstractAnonymousCustomerExtensionHandler
+- DefaultCustomerMergeExtensionHandler
+- AbstractUpdateCartServiceExtensionHandler
+- AbstractCacheKeyResolverExtensionHandler
+- AbstractLinkedDataGeneratorExtensionHandler
+- AbstractCheckoutControllerExtensionHandler
+- AbstractConfirmationControllerExtensionHandler
+- CheckoutStageType
+- GiftCardInfoForm
+- CheckoutForm
+- AbstractCartStateRequestProcessorExtensionHandler
+- AbstractAuthSuccessHandlerExtensionHandler
+- AbstractCommonAddressValidatorExtensionHandler
+- AbstractDatabaseResourceResolverExtensionHandler
 - InfiniteExpiryPolicy
 - OneMinuteExpiryPolicy
 - TwentyFourHourExpiryPolicy
@@ -41,62 +59,357 @@ Entities in Microservice 1:
 - ThirtyMinuteExpiryPolicy
 - OneHourExpiryPolicy
 - TenMinuteExpiryPolicy
+- MergePersistenceUnitManager
+- RemoveCacheClassTransformer
+- DirectCopyIgnorePattern
+- ConditionalFieldAnnotationsClassTransformer
+- OptionalDirectCopyClassTransformer
+- RemoveAnnotationClassTransformer
+- AnnotationsCopyClassTransformer
+- AbstractClassTransformer
+- DirectCopyClassTransformer
+- AlterTableNameClassTransformer
+- EntityMarkerClassTransformer
+- SingleTableInheritanceClassTransformer
+- SingleTableInheritanceInfo
+- AbstractSiteServiceExtensionHandler
+- SupportLogger
+- ProcessDetailLogger
+- AbstractTemplateOverrideExtensionHandler
+- AbstractExtensionHandler
+- AbstractMultiTenantCopierExtensionHandler
+- AbstractBroadleafMergeResourceExtensionHandler
+- DemoHsqlSingleLineSqlCommandExtractor
+- DemoPostgresSingleLineSqlCommandExtractor
+- DemoSqlServerSingleLineSqlCommandExtractor
+- DemoOracleSingleLineSqlCommandExtractor
+- ServerInfo
 - EmailServiceMDP
 - MessageCreator
 - NullMessageCreator
-Entities in Microservice 2:
-- PhoneImpl
-- CustomerPersistedEvent
-- SiteMapWrapper
-- SiteMapIndexWrapper
-Entities in Microservice 3:
-- StateImpl
-Entities in Microservice 4:
-- CountrySubdivisionImpl
-- AbstractRemoveBeanPostProcessor
-- EarlyStageRemoveBeanPostProcessor
-- LateStageRemoveBeanPostProcessor
-- DayOfMonthType
-- BroadleafEnvironmentConfigurer
-- BroadleafEnvironmentConfiguringPostProcessor
-- BroadleafEnvironmentConfiguringApplicationListener
+- AutoImportSql
+- AbstractSystemPropertyServiceExtensionHandler
 - TransactionInfo
 - CompressedItem
 - LifecycleAwareJpaTransactionManager
 - TransactionLifecycleEvent
+- SiteMapPriorityType
+- AbstractEntityInformationServiceExtensionHandler
+- EntityInformationDto
+- AbstractBroadleafTemplateResolverExtensionHandler
+- AbstractBLCICacheExtensionHandler
+- AbstractTRCreditCardExtensionHandler
+- AbstractCreditCardTypesExtensionHandler
+- AbstractPaymentGatewayFieldExtensionHandler
+- AbstractResourceRequestExtensionHandler
+- ResourceTagAttributes
+- BroadleafFormType
+- ResourcesRequestBundle
+Entities in Microservice 1:
+- CustomerPaymentImpl
+- StructuredContentCartRuleProcessor
+- PageCartRuleProcessor
+- AbstractMergeBeanPostProcessor
+- EarlyStageMergeBeanPostProcessor
+- LateStageMergeBeanPostProcessor
+- PaymentAdditionalFieldType
+- StructuredContentDTOWrapper
+- StructuredContentDTO
+- ItemCriteriaDTO
+- ConditionalFieldAnnotationCopyTransformMemberDTO
+- ResourceMinificationException
+- PageDTO
+- NullPageDTO
+Entities in Microservice 2:
+- PhoneImpl
+- EmailPropertyType
+Entities in Microservice 3:
+- StateImpl
+- AccountNumberMask
+- UnmaskRange
+- DayOfMonthType
+Entities in Microservice 4:
+- CountrySubdivisionImpl
+- SystemSupportLoggerAdapter
+- AbstractSupportLoggerAdapter
+- SLF4JSupportLoggerAdapter
+- SiteMapGeneratorType
 Entities in Microservice 5:
+- CustomerUserDetails
 - CustomerImpl
-- FulfillmentBandImpl
-- FulfillmentPriceBandImpl
-- FulfillmentWeightBandImpl
+- CustomerAddressImpl
+- OfferCodeImpl
+- OfferPriceDataImpl
+- OfferImpl
+- PromotionMessageImpl
+- OrderPaymentImpl
+- PaymentTransactionImpl
+- StoreImpl
+- OrderImpl
+- SolrConfiguration
+- BroadleafCloudSolrClient
+- FileSystemSolrIndexStatusProviderImpl
+- SolrSearchServiceImpl
+- SolrIndexCachedOperation
+- GlobalSolrFullReIndexOperation
+- ProductBundleImpl
+- CategoryImpl
+- RelatedProductTypeEnum
+- ProductImpl
+- RelatedProductDTO
+- ProductBundleComparator
+- ExplicitPrioritySequenceProcessor
+- EmptySequenceProcessor
+- SequenceProcessor
+- NonPersistentSiteThreadLocalCache
+- SiteImpl
+- CatalogImpl
+- CleanStringException
+- StaleStateServiceException
+- GloballySharedInputStream
+- Auditable
+- MultiTenantCopyContext
+- StopWatch
+- QueryUtils
+- PaymentType
+- AbstractModuleConfiguration
+- WeaveArchiveStatus
+- PreviewStatus
+- ArchiveStatus
+- SiteMapURLSetWrapper
+- SiteMapURLWrapper
+- SiteMapImageWrapper
+- SiteMapBuilder
+- SiteMapConfigurationImpl
+- SandBoxImpl
+- ServiceException
+- SecurityServiceException
+Entities in Microservice 6:
+- CountryImpl
+- TaxType
+Entities in Microservice 7:
+- AddressImpl
+- WeightUnitOfMeasureType
+Entities in Microservice 8:
+- ShippingRateImpl
+- ResourceInputStream
+- DynamicResourceIterator
+- MergeXmlConfigResource
+- MergeJPAPersistenceResource
+- ContainerSizeType
+Entities in Microservice 9:
+- CodeTypeImpl
+- PromotionMessageType
+- SkuActiveDateConsiderationContext
+- CreditCardInfoForm
+- SMSMessage
+Entities in Microservice 10:
+- LastPaymentStatus
+- CustomerOfferImpl
+- CustomChallengeQuestionEditor
+- CustomerAddressForm
+- DayOfWeekType
+- SystemPropertyFieldType
+- ConditionalDirectCopyTransformMemberDto
+- ServiceMonitor
+- ServiceStatusType
+- SiteMapChangeFreqType
+- SessionlessHttpServletRequestWrapper
+Entities in Microservice 11:
+- OfferAuditImpl
+Entities in Microservice 12:
+- RatingType
+- RatingSortType
+Entities in Microservice 13:
+- ReviewDetailImpl
+Entities in Microservice 14:
+- RatingSummaryImpl
+- IndexStatusInfoImpl
+- OnEhCacheMissingCondition
+- OnEhCacheCondition
+Entities in Microservice 15:
+- OrderStatus
+Entities in Microservice 16:
+- FulfillmentGroupStatusType
+- BroadleafEnvironmentConfigurer
+- BroadleafEnvironmentConfiguringPostProcessor
+- BroadleafEnvironmentConfiguringApplicationListener
+Entities in Microservice 17:
+- CustomerRuleHolder
+- PromotionMessageDTO
+- OrderItemType
+- AbstractOrderItemRequest
+- ProductBundleOrderItemRequest
+- OrderItemRequest
+- DiscreteOrderItemRequest
+- BundleOrderItemRequest
+- GiftWrapOrderItemRequest
+- OrderItemAttributeImpl
+- SkuPricingConsiderationContext
+- DynamicSkuPrices
+- SkuBundleItemImpl
+- SkuPriceWrapper
+Entities in Microservice 18:
+- FulfillmentType
+- LegacyOrderServiceImpl
+- LegacyCartServiceImpl
+- JCacheRegionConfiguration
+- MergeJCacheManagerFactoryBean
+Entities in Microservice 19:
+- BandedWeightFulfillmentOptionImpl
+- FixedPriceFulfillmentOptionImpl
+- BandedPriceFulfillmentOptionImpl
+- FulfillmentOptionImpl
+- XssRequestWrapper
+- DefaultDynamicSkuPricingFilter
+- AbstractDynamicSkuPricingFilter
+- FrameworkXmlBeanDefinitionReader
+- MergeXmlBeanDefinitionReader
+- HydrationDescriptor
+- EhcacheHydratedCacheManagerImpl
+- HydrationScanner
+- EhcacheHydratedCacheEventListener
+- AbstractHydratedCacheManager
+- HydrationItemDescriptor
+- BigMemoryHydratedCacheEventListener
+- BigMemoryHydratedCacheManagerImpl
+- EhcacheHydratedCacheJcacheEventListener
+- BigMemoryHydratedCacheJcacheEventListener
+- DynamicSupportedFieldType
+Entities in Microservice 20:
+- FulfillmentGroupItemImpl
+- NodeReplaceInsert
+- NonEmptyNodeReplaceInsert
+- SpaceDelimitedNodeValueMerge
+- SchemaLocationNodeValueMerge
+- NodeValueMerge
+- InsertChildrenOf
+- AttributePreserveInsert
+- LiberalNodeReplaceInsert
+- CommaDelimitedNodeValueMerge
+- BaseHandler
+- InsertItems
+- NodeReplace
+- MetadataOverrideNodeReplaceInsert
+Entities in Microservice 21:
+- FulfillmentEstimationResponse
+- ShippingServiceType
+- OfferAdjustmentType
+- OfferPriceDataIdentifierType
+- RuleDTOConfig
+- OrderPersistedEvent
+- NullOrderImpl
+- SkuFeeType
+- CookieRuleRequestProcessor
+- CookieRuleFilter
+- OrderInfoForm
+- BillingInfoForm
+- ShippingInfoForm
+- PaymentInfoForm
+- CheckoutSectionDTO
+- CheckoutSectionViewType
+- CheckoutSectionStateType
+- SiteResolutionType
+- AbstractBroadleafWebRequestProcessor
+- AbstractIgnorableOncePerRequestFilter
+Entities in Microservice 22:
+- FulfillmentGroupImpl
+Entities in Microservice 23:
 - DiscreteOrderItemImpl
 - GiftWrapOrderItemImpl
 - BundleOrderItemImpl
-- OrderImpl
 - DynamicPriceDiscreteOrderItemImpl
 - OrderItemImpl
-- Auditable
-- AbstractModuleConfiguration
+- MonthType
+Entities in Microservice 24:
+- SearchFacetImpl
+Entities in Microservice 25:
+- LocaleType
+- SearchCriteria
+- SearchResult
+- SearchFacetResultDTO
+- SearchFacetDTO
+- AbstractRemoveBeanPostProcessor
+- EarlyStageRemoveBeanPostProcessor
+- LateStageRemoveBeanPostProcessor
+Entities in Microservice 26:
+- IndexFieldImpl
+- ORMConfigDto
+- ORMConfigPersistenceUnitPostProcessor
+- ISOCodeStatusType
+Entities in Microservice 27:
+- SearchFacetRangeImpl
+- Filter
+- PropertyFilter
+Entities in Microservice 28:
+- IndexFieldTypeImpl
+- LocaleImpl
+Entities in Microservice 29:
+- FieldEntity
+- LifecycleAwareJDBCServicesInitiator
+Entities in Microservice 30:
+- FieldImpl
+Entities in Microservice 31:
+- FieldType
+- CategorySiteMapGeneratorConfigurationImpl
+- CreditCardType
+- CustomUrlSiteMapGeneratorConfigurationImpl
+- SiteMapGeneratorConfigurationImpl
+- TranslationConsiderationContext
+Entities in Microservice 32:
+- GeolocationDTO
+- SearchRedirectImpl
+- TableCreator
+- PaymentLogEventType
+Entities in Microservice 33:
+- ParentCategoryByProduct
+Entities in Microservice 34:
+- ReviewStatusType
+- ParentCategoryByCategory
+- TemplateType
 - ContainerShapeType
-- PreviewStatus
-- SiteMapConfigurationImpl
-Entities in Microservice 6:
-- CountryImpl
-- LegacyOfferUsesImpl
-- WeaveLegacyOfferUses
-- MessageType
-- SolrJSONFacet
-Entities in Microservice 7:
-- CustomerUserDetails
+Entities in Microservice 35:
+- CatalogStructure
+Entities in Microservice 36:
+- ItemOfferQtyOneComparator
+- ProductType
+Entities in Microservice 37:
+- Dimension
+- SkuImpl
+- Weight
+- DimensionUnitOfMeasureType
+Entities in Microservice 38:
+- ProductOptionImpl
+- PaymentDeclineType
+- SiteMapWrapper
+- SiteMapIndexWrapper
+Entities in Microservice 39:
+- ProductOptionValidationStrategyType
+- ProductOptionXrefImpl
+- TQOrder
+- TQRestriction
+- TQJoin
+- TypedQueryBuilder
+- CacheAwareResponseHandler
+- BroadleafResourceHttpRequestHandler
+Entities in Microservice 40:
+- CategoryProductXrefImpl
+Entities in Microservice 41:
+- FulfillmentBandImpl
+- FulfillmentPriceBandImpl
+- FulfillmentWeightBandImpl
+- ProductOptionValueImpl
+Entities in Microservice 42:
+- SkuProductOptionValueXrefImpl
+Entities in Microservice 43:
+- AssignedProductOptionDTO
+Entities in Microservice 44:
 - CustomerForgotPasswordSecurityTokenImpl
 - CustomerRoleImpl
 - CustomerAttributeImpl
-- CustomerAddressImpl
-- CustomerRuleHolder
 - RegisterCustomerEvent
 - ForgotUsernameEvent
 - ForgotPasswordEvent
-- FulfillmentEstimationResponse
 - PricingException
 - OfferContext
 - PromotionDiscount
@@ -120,35 +433,21 @@ Entities in Microservice 7:
 - OfferException
 - OfferExpiredException
 - OfferAlreadyAddedException
-- OfferCodeImpl
-- OfferPriceDataImpl
 - OrderItemAdjustmentImpl
-- OfferImpl
 - OrderItemPriceDetailAdjustmentImpl
-- PromotionMessageImpl
-- PromotionMessageDTO
 - OrderPaymentStatus
 - PaymentProcessorException
 - InsufficientFundsException
-- OrderPaymentImpl
-- PaymentTransactionImpl
 - CheckoutException
 - PricingServiceActivity
 - CompositeActivity
 - CheckoutSeed
-- StoreImpl
-- AbstractOrderItemRequest
 - FulfillmentGroupItemRequest
 - AddToCartItems
 - ConfigurableOrderItemRequest
 - FulfillmentGroupRequest
-- ProductBundleOrderItemRequest
 - ReconstructCartResponse
-- OrderItemRequest
 - NonDiscreteOrderItemRequestDTO
-- DiscreteOrderItemRequest
-- BundleOrderItemRequest
-- GiftWrapOrderItemRequest
 - AddToCartItem
 - MergeCartResponse
 - UpdateCartResponse
@@ -166,332 +465,20 @@ Entities in Microservice 7:
 - AbstractCheckAvailabilityActivity
 - CartOperationRequest
 - OrderAttributeImpl
-- OrderItemAttributeImpl
 - OrderMultishipOptionImpl
 - OrderItemHolder
-- SolrConfiguration
-- BroadleafCloudSolrClient
-- FileSystemSolrIndexStatusProviderImpl
-- SolrSearchServiceImpl
-- SolrIndexCachedOperation
-- GlobalSolrFullReIndexOperation
-- SkuPricingConsiderationContext
-- DynamicSkuPrices
+- InventoryUnavailableException
+- InventoryType
 - DefaultDynamicSkuPricingInvocationHandler
 - ProductOptionValidationType
-- ProductBundleImpl
-- SkuBundleItemImpl
-- CategoryImpl
-- RelatedProductTypeEnum
-- ProductImpl
-- RelatedProductDTO
-- ProductBundleComparator
-- SkuPriceWrapper
 - WorkflowException
 - DefaultProcessContextImpl
 - RollbackStateLocal
+- RollbackFailureException
 - CustomerLoggedInEvent
 - CustomerAuthenticatedFromCookieEvent
 - PhoneNameForm
 - RegisterCustomerForm
-- OrderInfoForm
-- BillingInfoForm
-- OrderMultishipOptionForm
-- ShippingInfoForm
-- PaymentInfoForm
-- CheckoutSectionDTO
-- CheckoutSectionViewType
-- CheckoutSectionStateType
-- OrderLockAcquisitionFailureException
-- NonPersistentSiteThreadLocalCache
-- SiteImpl
-- CatalogImpl
-- CleanStringException
-- StaleStateServiceException
-- PasswordChange
-- PasswordReset
-- MultiTenantCopyContext
-- GenericResponse
-- StopWatch
-- QueryUtils
-- PaymentGatewayRequestType
-- PaymentTransactionType
-- PaymentGatewayType
-- PaymentType
-- PaymentRequestDTO
-- LineItemDTO
-- PaymentResponseDTO
-- Money
-- EmailInfo
-- NullEmailInfo
-- EmailException
-- Attachment
-- WeaveArchiveStatus
-- EmailStatusHandler
-- FulfillmentPriceException
-- PaymentException
-- FulfillmentPriceHostException
-- TargetModeType
-- ArchiveStatus
-- SiteMapURLSetWrapper
-- SiteMapURLWrapper
-- SiteMapImageWrapper
-- SiteMapBuilder
-- SandBoxImpl
-- EntityInformationDto
-- ItemsFulfilledEvent
-- BroadleafApplicationEvent
-- ReindexEvent
-- ItemsReturnedEvent
-- OrderSubmittedEvent
-- ItemsCancelledEvent
-- EmailNotification
-- SMSNotification
-- Notification
-- BroadleafException
-- ServiceException
-- SecurityServiceException
-Entities in Microservice 8:
-- AddressImpl
-Entities in Microservice 9:
-- AbstractPostUpdateCustomerExtensionHandler
-- ShippingRateImpl
-- AbstractResourcePurgeExtensionHandler
-- AbstractSiteMapExtensionHandler
-- AbstractOfferValueModifierExtensionHandler
-- AbstractOfferServiceExtensionHandler
-- OrderOfferComparator
-- DefaultOfferCodeDaoExtensionHandler
-- AbstractValidateCheckoutActivityExtensionHandler
-- AbstractPostUpdateOrderExtensionHandler
-- AbstractOrderServiceExtensionHandler
-- AbstractMergeCartServiceExtensionHandler
-- AbstractOrderItemServiceExtensionHandler
-- AbstractValidateAddRequestActivityExtensionHandler
-- AbstractOrderDaoExtensionHandler
-- AbstractSolrSearchServiceExtensionHandler
-- AbstractSolrIndexServiceExtensionHandler
-- AbstractInventoryServiceExtensionHandler
-- AbstractCatalogServiceExtensionHandler
-- AbstractProductProcessorExtensionHandler
-- AbstractCategoryDaoExtensionHandler
-- AbstractProductDaoExtensionHandler
-- AbstractSkuDaoExtensionHandler
-- AbstractAnonymousCustomerExtensionHandler
-- DefaultCustomerMergeExtensionHandler
-- AbstractUpdateCartServiceExtensionHandler
-- AbstractCacheKeyResolverExtensionHandler
-- AbstractLinkedDataGeneratorExtensionHandler
-- AbstractCheckoutControllerExtensionHandler
-- AbstractConfirmationControllerExtensionHandler
-- AbstractCartStateRequestProcessorExtensionHandler
-- AbstractAuthSuccessHandlerExtensionHandler
-- AbstractCommonAddressValidatorExtensionHandler
-- AbstractDatabaseResourceResolverExtensionHandler
-- AbstractSiteServiceExtensionHandler
-- AbstractTemplateOverrideExtensionHandler
-- AbstractExtensionHandler
-- AbstractMultiTenantCopierExtensionHandler
-- AbstractBroadleafMergeResourceExtensionHandler
-- AbstractSystemPropertyServiceExtensionHandler
-- AbstractEntityInformationServiceExtensionHandler
-- AbstractBroadleafTemplateResolverExtensionHandler
-- AbstractBLCICacheExtensionHandler
-- AbstractTRCreditCardExtensionHandler
-- AbstractCreditCardTypesExtensionHandler
-- AbstractPaymentGatewayFieldExtensionHandler
-- AbstractResourceRequestExtensionHandler
-Entities in Microservice 10:
-- LastPaymentStatus
-- CodeTypeImpl
-- IndexStatusInfoImpl
-- CategorySiteMapGeneratorConfigurationImpl
-- MonthType
-- CustomUrlSiteMapGeneratorConfigurationImpl
-- SiteMapGeneratorConfigurationImpl
-- ResourcesRequestBundle
-Entities in Microservice 11:
-- CustomerOfferImpl
-- CreditCardInfoForm
-- DimensionUnitOfMeasureType
-- ConditionalDirectCopyTransformMemberDto
-Entities in Microservice 12:
-- OfferAuditImpl
-- ProductHandlerMapping
-- SkuHandlerMapping
-- CategoryHandlerMapping
-- EmailPropertyType
-- ResourceMinificationException
-- BLCAbstractHandlerMapping
-Entities in Microservice 13:
-- RatingType
-- RatingSortType
-Entities in Microservice 14:
-- ReviewDetailImpl
-- HourOfDayType
-- FileSystemResponseWrapper
-Entities in Microservice 15:
-- PromotionMessageType
-- RatingSummaryImpl
-- CustomChallengeQuestionEditor
-- CustomerAddressForm
-- ServerInfo
-- SystemPropertyFieldType
-- ConditionalFieldAnnotationCopyTransformMemberDTO
-- SessionlessHttpServletRequestWrapper
-Entities in Microservice 16:
-- OrderStatus
-- WebRequestDeviceType
-Entities in Microservice 17:
-- FulfillmentGroupStatusType
-- Filter
-- PropertyFilter
-- TQOrder
-- TQRestriction
-- TQJoin
-- TypedQueryBuilder
-Entities in Microservice 18:
-- OrderItemType
-- BaseProcessor
-- OnEhCacheMissingCondition
-- OnEhCacheCondition
-- MergePersistenceUnitManager
-- RemoveCacheClassTransformer
-- DirectCopyIgnorePattern
-- ConditionalFieldAnnotationsClassTransformer
-- OptionalDirectCopyClassTransformer
-- RemoveAnnotationClassTransformer
-- AnnotationsCopyClassTransformer
-- AbstractClassTransformer
-- DirectCopyClassTransformer
-- AlterTableNameClassTransformer
-- EntityMarkerClassTransformer
-- SingleTableInheritanceClassTransformer
-- SingleTableInheritanceInfo
-- SupportLogger
-- ProcessDetailLogger
-- DemoHsqlSingleLineSqlCommandExtractor
-- DemoPostgresSingleLineSqlCommandExtractor
-- DemoSqlServerSingleLineSqlCommandExtractor
-- DemoOracleSingleLineSqlCommandExtractor
-Entities in Microservice 19:
-- FulfillmentType
-- ReindexStateHolder
-Entities in Microservice 20:
-- BandedWeightFulfillmentOptionImpl
-- FixedPriceFulfillmentOptionImpl
-- BandedPriceFulfillmentOptionImpl
-- FulfillmentOptionImpl
-- FrameworkXmlBeanDefinitionReader
-- MergeXmlBeanDefinitionReader
-- SiteMapChangeFreqType
-Entities in Microservice 21:
-- RuleDTOConfig
-- FulfillmentGroupItemImpl
-- CookieRuleRequestProcessor
-- CookieRuleFilter
-- AbstractBroadleafWebRequestProcessor
-- AbstractIgnorableOncePerRequestFilter
-Entities in Microservice 22:
-- OrderPersistedEvent
-- NullOrderImpl
-Entities in Microservice 23:
-- FulfillmentGroupImpl
-- JCacheRegionConfiguration
-- MergeJCacheManagerFactoryBean
-- NodeReplaceInsert
-- NonEmptyNodeReplaceInsert
-- SpaceDelimitedNodeValueMerge
-- SchemaLocationNodeValueMerge
-- NodeValueMerge
-- InsertChildrenOf
-- AttributePreserveInsert
-- LiberalNodeReplaceInsert
-- CommaDelimitedNodeValueMerge
-- BaseHandler
-- InsertItems
-- NodeReplace
-- MetadataOverrideNodeReplaceInsert
-- SiteResolutionType
-Entities in Microservice 24:
-- SearchFacetImpl
-- GloballySharedInputStream
-- ContainerSizeType
-Entities in Microservice 25:
-- SearchCriteria
-- SearchResult
-- SearchFacetResultDTO
-- SearchFacetDTO
-- AccountNumberMask
-- UnmaskRange
-Entities in Microservice 26:
-- IndexFieldImpl
-- SiteMapPriorityType
-Entities in Microservice 27:
-- SearchFacetRangeImpl
-- CacheAwareResponseHandler
-- BroadleafResourceHttpRequestHandler
-Entities in Microservice 28:
-- ShippingServiceType
-- IndexFieldTypeImpl
-- AuditableListener
-- AbstractAuditableListener
-- BroadleafFormType
-Entities in Microservice 29:
-- FieldEntity
-- ORMConfigDto
-- ORMConfigPersistenceUnitPostProcessor
-- FilterDefinition
-- FilterParameter
-- SMSMessage
-- MinuteType
-Entities in Microservice 30:
-- FieldImpl
-- DynamicSupportedFieldType
-Entities in Microservice 31:
-- FieldType
-Entities in Microservice 32:
-- SearchRedirectImpl
-- ProductOptionValidationStrategyType
-- XssRequestWrapper
-Entities in Microservice 33:
-- ParentCategoryByProduct
-Entities in Microservice 34:
-- OfferAdjustmentType
-- OfferPriceDataIdentifierType
-- ParentCategoryByCategory
-Entities in Microservice 35:
-- CatalogStructure
-- LocaleImpl
-Entities in Microservice 36:
-- ProductType
-Entities in Microservice 37:
-- Dimension
-- SkuImpl
-- Weight
-Entities in Microservice 38:
-- ProductOptionImpl
-- NoOpCache
-- NoOpCacheManager
-Entities in Microservice 39:
-- PromotableOrderItemImpl
-- TaxType
-- ProductOptionXrefImpl
-- ServiceMonitor
-- ServiceStatusType
-Entities in Microservice 40:
-- CategoryProductXrefImpl
-Entities in Microservice 41:
-- ProductOptionValueImpl
-- ExplicitPrioritySequenceProcessor
-- EmptySequenceProcessor
-- SequenceProcessor
-Entities in Microservice 42:
-- SkuProductOptionValueXrefImpl
-- TableCreator
-Entities in Microservice 43:
-- ProductBundlePricingModelType
-- AssignedProductOptionDTO
 - AbstractCartController
 - BroadleafCartController
 - BroadleafPaymentInfoController
@@ -517,112 +504,125 @@ Entities in Microservice 43:
 - BroadleafCategoryController
 - BroadleafSkuController
 - BroadleafProductController
+- OrderMultishipOptionForm
+- OrderLockAcquisitionFailureException
+- PasswordChange
+- PasswordReset
+- ExtensionResultHolder
+- GenericResponse
+- PaymentGatewayRequestType
+- PaymentTransactionType
+- PaymentGatewayType
+- PaymentRequestDTO
+- LineItemDTO
+- PaymentResponseDTO
+- Money
+- EmailInfo
+- NullEmailInfo
+- EmailException
+- Attachment
+- EmailStatusHandler
+- FulfillmentPriceException
+- PaymentException
+- FulfillmentPriceHostException
+- ItemsFulfilledEvent
+- BroadleafApplicationEvent
+- ReindexEvent
+- BroadleafSystemEventDetail
+- ItemsReturnedEvent
+- OrderSubmittedEvent
+- ItemsCancelledEvent
+- BroadleafSystemEvent
+- EmailNotification
+- SMSNotification
+- Notification
+- FileSystemResponseWrapper
 - CustomerPaymentGatewayAbstractController
 - PaymentGatewayAbstractController
 - BroadleafAbstractController
-Entities in Microservice 44:
-- ExtensionResultHolder
-- ISOCodeStatusType
+- BroadleafException
 Entities in Microservice 45:
-- ItemOfferQtyOneComparator
+- ItemOfferWeightedPercentComparator
 - StandardCacheItem
-- IdentityUtilContext
 Entities in Microservice 46:
-- DefaultDynamicSkuPricingFilter
-- AbstractDynamicSkuPricingFilter
-- ResourceInputStream
-- DynamicResourceIterator
-- MergeXmlConfigResource
-- MergeJPAPersistenceResource
-- SystemSupportLoggerAdapter
-- AbstractSupportLoggerAdapter
-- SLF4JSupportLoggerAdapter
 - StreamCapableTransactionalOperationAdapter
+- TargetModeType
 Entities in Microservice 47:
-- GiftCardInfoForm
-- HydrationDescriptor
-- EhcacheHydratedCacheManagerImpl
-- HydrationScanner
-- EhcacheHydratedCacheEventListener
-- AbstractHydratedCacheManager
-- HydrationItemDescriptor
-- BigMemoryHydratedCacheEventListener
-- BigMemoryHydratedCacheManagerImpl
-- EhcacheHydratedCacheJcacheEventListener
-- BigMemoryHydratedCacheJcacheEventListener
 - BatchRetrieveDao
 Entities in Microservice 48:
 - AddressVerificationException
-- ReviewStatusType
-- InventoryUnavailableException
-- InventoryType
-- RollbackFailureException
+- PromotableOrderItemImpl
+- MessageType
+- FileServiceException
+- FileApplicationType
+- FileWorkArea
 - ModuleConfigurationType
 - TaxHostException
 - TaxException
-- BroadleafSystemEventDetail
-- BroadleafSystemEvent
+- SiteMapGenerationResponse
+- GeneratedResource
+- BundledResourceInfo
+- WebRequestDeviceType
+- BroadleafDefaultResourceResolverChain
 Entities in Microservice 49:
+- ProductBundlePricingModelType
 - NullSystemProperty
-- LifecycleAwareJDBCServicesInitiator
 Entities in Microservice 50:
+- SystemPropertyImpl
+Entities in Microservice 51:
+- ReindexStateHolder
+- MinuteType
+- SandBoxManagementImpl
+Entities in Microservice 52:
+- SandBoxType
+Entities in Microservice 53:
+- CustomerPersistedEvent
+- ProductHandlerMapping
+- SkuHandlerMapping
+- CategoryHandlerMapping
+- CacheStat
+- HourOfDayType
+- LocalePair
+- TranslatedEntity
+- BLCAbstractHandlerMapping
+Entities in Microservice 54:
 - FullReindexCommand
 - IncrementalUpdateCommand
 - CatalogReindexCommand
 - SiteReindexCommand
 - AbstractSolrIndexUpdateServiceImpl
 - SolrUpdateCommand
-- SystemPropertyImpl
-Entities in Microservice 51:
-- PaymentLogEventType
-- SandBoxManagementImpl
-Entities in Microservice 52:
-- SandBoxType
-Entities in Microservice 53:
-- CacheStat
-- LocalePair
-- TranslatedEntity
-Entities in Microservice 54:
-- LegacyOrderServiceImpl
-- LegacyCartServiceImpl
-- TemplateType
+- AuditableListener
+- AbstractAuditableListener
 - TranslationImpl
 Entities in Microservice 55:
-- ItemOfferWeightedPercentComparator
+- OrderOfferComparator
+- IdentityUtilContext
 - ISOCountryImpl
 Entities in Microservice 56:
 - ItemOfferComparator
 - PromotionMessagePlacementType
 - FulfillmentBandResultAmountType
+- AvailabilityStatusType
 - CatalogContextDTO
-- SkuActiveDateConsiderationContext
-- CheckoutStageType
-- CheckoutForm
 - RequestDTOImpl
+- NoOpCache
+- NoOpCacheManager
 - ConfigurationOnlyState
-- FileServiceException
-- FileApplicationType
-- FileWorkArea
+- ThreadLocalManager
 - BreadcrumbDTO
 - BreadcrumbDTOType
-- WeightUnitOfMeasureType
-- CreditCardType
+- FilterDefinition
+- FilterParameter
 - FixedTimeSource
-- DayOfWeekType
-- AutoImportSql
 - BroadleafRequestedCurrencyDto
-- SiteMapGenerationResponse
-- SiteMapGeneratorType
-- GeneratedResource
-- BundledResourceInfo
 - BroadleafRequestContext
 - SandBoxContext
-- BroadleafDefaultResourceResolverChain
 - HaltFilterChainException
 
 
 
-# of method calls crossing microservices: 31
-# of entity references crossing microservices: 6
-# of entity usages crossing microservices: 64
-# of methods persisting entities of other microservices: 67
+# of method calls crossing microservices: 124
+# of entity references crossing microservices: 13
+# of entity usages crossing microservices: 40
+# of methods persisting entities of other microservices: 34

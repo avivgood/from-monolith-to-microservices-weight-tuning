@@ -1,133 +1,21 @@
-Found 10 microservices
-Total coupling value: 12.671874861843776 (1.2671874861843775 avg.)
-Cohesion value: 0.8642540247115882
+Found 7 microservices
+Total coupling value: 10.923447234608659 (1.5604924620869514 avg.)
+Cohesion value: 0.8765890766805388
 
 Entities in Microservice 0:
-- AbstractRelationInsertRepository
-Entities in Microservice 1:
-- TbCreateRelationNodeConfiguration
-- TbDeleteRelationNodeConfiguration
-- TbAbstractRelationActionNodeConfiguration
-- TbCreateRelationNode
-- TbDeleteRelationNode
-- AbstractComponentDescriptorInsertRepository
-- JsonStringSqlTypeDescriptor
-- AbstractJsonSqlTypeDescriptor
-Entities in Microservice 2:
-- TbMsgTypeSwitchNode
-- TbOriginatorTypeSwitchNode
-- TbSendEmailNode
-- TbSendEmailNodeConfiguration
-- TbCopyAttributesToEntityViewNode
-- TbGpsGeofencingActionNode
-- TbGpsGeofencingActionNodeConfiguration
-- EntityGeofencingState
-- TbGpsGeofencingFilterNode
-- TbGpsGeofencingFilterNodeConfiguration
-- TbAckNode
-- EmptyNodeConfiguration
-- CoapTransportResource
-- UpdateMessage
-- AbstractEventInsertRepository
-Entities in Microservice 3:
-- AbstractNashornJsInvokeService
-- AbstractJsInvokeService
-- AbstractCleanUpService
-- AbstractTimeseriesCleanUpService
-- TbCheckAlarmStatusNode
-- TbCheckAlarmStatusNodeConfig
-- TbAbstractRelationActionNode
-- TbSaveToCustomCassandraTableNode
-- TbSaveToCustomCassandraTableNodeConfiguration
-- TbMsgAttributesNodeConfiguration
-- TbMsgAttributesNode
-- TbRestApiCallNodeConfiguration
-- TbRestApiCallNode
-- TbHttpClient
-- TbRabbitMqNode
-- TbRabbitMqNodeConfiguration
-- DefaultTbQueueMsgHeaders
-- DefaultTbQueueMsg
-- PsqlPartition
-- EntityContainer
-Entities in Microservice 4:
-- TbJsSwitchNodeConfiguration
-- TbJsSwitchNode
-- TbJsFilterNodeConfiguration
-- TbJsFilterNode
-- TbMsgToEmailNodeConfiguration
-- TbMsgToEmailNode
-- TbLogNode
-- TbAbstractAlarmNodeConfiguration
-- TbLogNodeConfiguration
-- TbCreateAlarmNodeConfiguration
-- TbCreateAlarmNode
-- TbClearAlarmNodeConfiguration
-- TbClearAlarmNode
-- TbMsgTimeseriesNode
-- TbMsgTimeseriesNodeConfiguration
-- SessionException
-- SessionAuthException
-- MqttClientImpl
-- MqttChannelHandler
-- MqttClientConfig
-- MqttSubscription
-- MqttPendingSubscription
-- MqttConnectResult
-- MqttPendingPublish
-- MqttIncomingQos2Publish
-- MqttPendingUnsubscription
-- MqttLastWill
-- TbSqlBlockingQueueParams
-- TbSqlBlockingQueue
-- TbSqlBlockingQueueWrapper
-- AttributeKvEntity
-Entities in Microservice 5:
-- TbGetOriginatorFieldsNode
-- TbGetTelemetryNode
-- TbGetTelemetryNodeConfiguration
-- TbGetOriginatorFieldsConfiguration
-- TbKafkaNodeConfiguration
-- TbKafkaNode
-- TbCheckpointNodeConfiguration
-- TbCheckpointNode
-- RelationCompositeKey
-Entities in Microservice 6:
-- ThingsboardErrorResponse
-- ThingsboardCredentialsExpiredResponse
-- TbSendRpcRequestNodeConfiguration
-- TbSendRPCReplyNode
-- TbSendRpcReplyNodeConfiguration
-- TbSendRPCRequestNode
+- SessionTimeoutCheckMsg
 - TbMqttNodeConfiguration
 - TbMqttNode
 - TbAzureIotHubNode
 - TbAzureIotHubNodeConfiguration
-- TbPubSubNodeConfiguration
-- TbPubSubNode
-- TbMsgTypeFilterNodeConfiguration
-- TbCheckMessageNodeConfiguration
-- TbCheckMessageNode
-- TbCheckRelationNodeConfiguration
-- TbMsgTypeFilterNode
-- TbCheckRelationNode
-- TbSnsNode
-- TbSnsNodeConfiguration
-- RelationEntity
-Entities in Microservice 7:
-- JpaAbstractDao
-- JpaAbstractDaoListeningExecutorService
-- AbstractSqlTimeseriesDao
-- AbstractChunkedAggregationTimeseriesDao
-- AbstractTsKvEntity
-- TsKvEntity
-- TimescaleTsKvEntity
-Entities in Microservice 8:
+- TbMsgAttributesNodeConfiguration
+- TbMsgAttributesNode
+- PsqlPartition
+Entities in Microservice 1:
 - ThingsboardInstallException
 - ToDeviceRpcRequestActorMsg
 - FromDeviceRpcResponse
 - LocalRequestMetaData
-- RuleNodeJsScriptEngine
 - ValidationResult
 - SecurityUser
 - UserPrincipal
@@ -184,50 +72,48 @@ Entities in Microservice 8:
 - ComponentActor
 - SessionInfo
 - DeviceActorCreator
-- SessionTimeoutCheckMsg
 - SessionInfoMetaData
 - DeviceActor
 - DeviceActorMessageProcessor
 - ToDeviceRpcRequestMetadata
 - TenantActor
 - DebugTbRateLimits
-- RuleChainToRuleNodeMsg
 - RuleNodeRelation
 - DefaultTbContext
 - RuleChainActorMessageProcessor
 - RuleNodeCtx
-- RuleNodeToRuleChainTellNextMsg
-- RuleChainToRuleChainMsg
 - RuleChainActor
 - RuleNodeActor
-- RuleNodeToSelfErrorMsg
 - RuleChainManagerActor
-- RuleNodeToSelfMsg
 - RuleNodeActorMessageProcessor
 - StatsActor
 - StatsPersistMsg
 - AppActor
+- TbLogNode
+- TbCreateRelationNodeConfiguration
+- TbDeleteRelationNodeConfiguration
 - TbAbstractCustomerActionNode
-- TbMsgDelayNode
-- TbMsgDelayNodeConfiguration
+- TbLogNodeConfiguration
+- TbAbstractRelationActionNodeConfiguration
+- TbCreateRelationNode
+- TbDeleteRelationNode
 - RelationsQuery
 - DeviceRelationsQuery
-- TelemetryNodeCallback
 - TbSqsNode
 - TbSqsNodeConfiguration
-- TbMsgGeneratorNode
-- TbMsgGeneratorNodeConfiguration
+- TbGpsGeofencingActionNode
+- TbGpsGeofencingActionNodeConfiguration
+- EntityGeofencingState
+- TbGpsGeofencingFilterNode
+- TbGpsGeofencingFilterNodeConfiguration
 - TbTransformNodeConfiguration
 - TbAbstractTransformNode
 - TbTransformMsgNodeConfiguration
 - TbChangeOriginatorNodeConfiguration
 - TbTransformMsgNode
 - TbChangeOriginatorNode
-- TbGetTenantDetailsNode
 - TbGetRelatedAttrNodeConfiguration
 - TbGetTenantAttributeNode
-- TbAbstractGetEntityDetailsNodeConfiguration
-- TbGetTenantDetailsNodeConfiguration
 - TbGetCustomerAttributeNode
 - TbGetDeviceAttrNodeConfiguration
 - TbGetAttributesNode
@@ -235,10 +121,9 @@ Entities in Microservice 8:
 - TbGetAttributesNodeConfiguration
 - TbGetDeviceAttrNode
 - TbGetEntityAttrNodeConfiguration
-- TbGetCustomerDetailsNode
-- TbGetCustomerDetailsNodeConfiguration
 - TbGetRelatedAttributeNode
-- NodeDefinition
+- TbKafkaNodeConfiguration
+- TbKafkaNode
 - RuleEngineDeviceRpcRequest
 - RuleEngineDeviceRpcResponse
 - DeviceAttributesEventNotificationMsg
@@ -257,6 +142,7 @@ Entities in Microservice 8:
 - RpcRequestMetadata
 - DeviceAwareSessionContext
 - DeviceAuthResult
+- CoapTransportResource
 - ShortCustomerInfo
 - Device
 - DashboardInfo
@@ -266,9 +152,9 @@ Entities in Microservice 8:
 - Dashboard
 - EntityView
 - User
+- UpdateMessage
 - EntitySubtype
 - Customer
-- Event
 - Tenant
 - EntityRelationsQuery
 - EntityTypeFilter
@@ -306,7 +192,6 @@ Entities in Microservice 8:
 - AlarmQuery
 - Alarm
 - AlarmInfo
-- ComponentDescriptor
 - AuditLogId
 - WidgetsBundleId
 - UserCredentialsId
@@ -320,8 +205,6 @@ Entities in Microservice 8:
 - DeviceId
 - WidgetTypeId
 - AlarmId
-- ComponentDescriptorId
-- EventId
 - DashboardId
 - EntityViewId
 - TenantId
@@ -357,8 +240,10 @@ Entities in Microservice 8:
 - InMemoryTbQueueConsumer
 - InMemoryStorage
 - AbstractTbQueueConsumerTemplate
+- DefaultTbQueueMsgHeaders
 - DefaultTbQueueRequestTemplate
 - AbstractTbQueueTemplate
+- DefaultTbQueueMsg
 - DefaultTbQueueResponseTemplate
 - TbRabbitMqProducerTemplate
 - TbKafkaConsumerTemplate
@@ -368,10 +253,8 @@ Entities in Microservice 8:
 - TbActorSystemSettings
 - TbActorMailbox
 - Dispatcher
-- TbMsg
 - TbMsgMetaData
 - ToDeviceRpcRequest
-- TbRateLimits
 - TbRateLimitsException
 - ComponentLifecycleMsg
 - ServiceQueueKey
@@ -382,33 +265,43 @@ Entities in Microservice 8:
 - RuleEngineException
 - TopicPartitionInfo
 - RuleNodeInfo
+- MqttClientImpl
+- MqttChannelHandler
+- MqttClientConfig
+- MqttSubscription
+- MqttPendingSubscription
+- MqttConnectResult
+- MqttPendingPublish
+- MqttIncomingQos2Publish
+- MqttPendingUnsubscription
+- MqttLastWill
 - AuditLogQueryCursor
+- TbSqlBlockingQueueParams
+- TbSqlBlockingQueue
+- TbSqlBlockingQueueWrapper
 - AggregatePartitionsFunction
 - TsKvQueryCursor
 - QueryCursor
 - TenantRateLimitException
 - AbstractBufferedRateExecutor
 - BufferedRateExecutorStats
+- JsonStringSqlTypeDescriptor
+- AbstractJsonSqlTypeDescriptor
 - OAuth2Client
 - OAuth2ClientMapperConfig
 - ClaimDataInfo
-- CassandraAbstractAsyncDao
-- CassandraAbstractDao
-- CassandraAbstractModelDao
 - TbResultSetFuture
 - EntitySubtypeEntity
 - ModelConstants
 - AttributeKvCompositeKey
+- AttributeKvEntity
 - DeviceEntity
-- DashboardEntity
 - AdminSettingsEntity
 - WidgetTypeEntity
 - TenantEntity
 - CustomerEntity
 - WidgetsBundleEntity
-- ComponentDescriptorEntity
 - UserEntity
-- RuleNodeEntity
 - DashboardInfoEntity
 - EntityViewEntity
 - DeviceCredentialsEntity
@@ -419,19 +312,120 @@ Entities in Microservice 8:
 - AuditLogEntity
 - DataValidationException
 - IncorrectParameterException
-Entities in Microservice 9:
-- TbOriginatorTypeFilterNodeConfiguration
-- TbOriginatorTypeFilterNode
+Entities in Microservice 2:
 - TbAssignToCustomerNode
 - TbUnassignFromCustomerNodeConfiguration
 - TbUnassignFromCustomerNode
+- TbAbstractRelationActionNode
 - TbAbstractCustomerActionNodeConfiguration
 - TbAssignToCustomerNodeConfiguration
+- TbMsgTimeseriesNode
+- TbMsgTimeseriesNodeConfiguration
+- TbSnsNode
+- TbSnsNodeConfiguration
+- TbGetTenantDetailsNode
+- TbAbstractGetEntityDetailsNodeConfiguration
+- TbGetTenantDetailsNodeConfiguration
+- TbGetCustomerDetailsNode
+- TbGetCustomerDetailsNodeConfiguration
+- EntityContainer
+- RelationCompositeKey
+Entities in Microservice 3:
+- AbstractCleanUpService
+- AbstractTimeseriesCleanUpService
+- TbSendRPCReplyNode
+- TbSendRpcReplyNodeConfiguration
+- TbPubSubNodeConfiguration
+- TbPubSubNode
+- TbRestApiCallNodeConfiguration
+- TbRestApiCallNode
+- TbHttpClient
+- TbRabbitMqNode
+- TbRabbitMqNodeConfiguration
+- TbGetOriginatorFieldsNode
+- TbGetTelemetryNode
+- TbGetTelemetryNodeConfiguration
+- TbGetOriginatorFieldsConfiguration
+- RelationEntity
+Entities in Microservice 4:
+- TbSendRpcRequestNodeConfiguration
+- TbSendRPCRequestNode
+- TbJsSwitchNodeConfiguration
+- TbCheckMessageNodeConfiguration
+- TbCheckMessageNode
+- TbJsSwitchNode
+- TbCheckpointNodeConfiguration
+- TbCheckpointNode
+- JpaAbstractDao
+- JpaAbstractDaoListeningExecutorService
+- AbstractSqlTimeseriesDao
+- AbstractChunkedAggregationTimeseriesDao
+- AbstractTsKvEntity
+- TsKvEntity
+- TimescaleTsKvEntity
+Entities in Microservice 5:
+- AbstractNashornJsInvokeService
+- AbstractJsInvokeService
+- ThingsboardErrorResponse
+- ThingsboardCredentialsExpiredResponse
+- TbMsgTypeFilterNodeConfiguration
+- TbMsgTypeSwitchNode
+- TbCheckAlarmStatusNode
+- TbOriginatorTypeFilterNodeConfiguration
+- TbCheckRelationNodeConfiguration
+- TbMsgTypeFilterNode
+- TbOriginatorTypeSwitchNode
+- TbJsFilterNodeConfiguration
+- TbOriginatorTypeFilterNode
+- TbCheckAlarmStatusNodeConfig
+- TbJsFilterNode
+- TbCheckRelationNode
+- TbSendEmailNode
+- TbMsgToEmailNodeConfiguration
+- TbMsgToEmailNode
+- TbSendEmailNodeConfiguration
+- TbAbstractAlarmNodeConfiguration
+- TbCopyAttributesToEntityViewNode
+- TbCreateAlarmNodeConfiguration
+- TbCreateAlarmNode
+- TbClearAlarmNodeConfiguration
+- TbClearAlarmNode
+- TbAckNode
+- EmptyNodeConfiguration
+- NodeDefinition
+- ComponentDescriptor
+- ComponentDescriptorId
+- SessionException
+- SessionAuthException
+- DashboardEntity
+- ComponentDescriptorEntity
+- RuleNodeEntity
+Entities in Microservice 6:
+- RuleNodeJsScriptEngine
+- RuleChainToRuleNodeMsg
+- RuleNodeToRuleChainTellNextMsg
+- RuleChainToRuleChainMsg
+- RuleNodeToSelfErrorMsg
+- RuleNodeToSelfMsg
+- TbSaveToCustomCassandraTableNode
+- TbSaveToCustomCassandraTableNodeConfiguration
+- TbMsgDelayNode
+- TbMsgDelayNodeConfiguration
+- TelemetryNodeCallback
+- TbMsgGeneratorNode
+- TbMsgGeneratorNodeConfiguration
+- Event
+- EventId
+- TbMsg
+- TbRateLimits
+- CassandraAbstractAsyncDao
+- CassandraAbstractDao
+- CassandraAbstractModelDao
 - EventEntity
 
 
 
-# of method calls crossing microservices: 1
-# of entity references crossing microservices: 1
-# of entity usages crossing microservices: 28
-# of methods persisting entities of other microservices: 17
+# of method calls crossing microservices: 14
+# of entity references crossing microservices: 9
+# of entity usages crossing microservices: 83
+# of methods persisting entities of other microservices: 1
