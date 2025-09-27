@@ -1,6 +1,6 @@
 Found 2 microservices
-Total coupling value: 0.7069101578314836 (0.3534550789157418 avg.)
-Cohesion value: 0.9826195816065577
+Total coupling value: 0.138237879501645 (0.0691189397508225 avg.)
+Cohesion value: 0.9974805737486447
 
 Entities in Microservice 0:
 - SettingsForm

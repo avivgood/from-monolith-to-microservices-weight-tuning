@@ -1,6 +1,6 @@
 Found 3 microservices
-Total coupling value: 2.976445528018747 (0.9921485093395823 avg.)
-Cohesion value: 0.8417512150145875
+Total coupling value: 3.267381857056744 (1.0891272856855814 avg.)
+Cohesion value: 0.6826751423966902
 
 Entities in Microservice 0:
 - HipchatNotifier
@@ -44,6 +44,9 @@ Entities in Microservice 0:
 - InstancesController
 - InstanceWebClient
 - CookieStoreCleanupTrigger
+- InstanceWebClientException
+- ResolveEndpointException
+- ResolveInstanceException
 - InstancesProxyController
 - ApplicationRegistry
 - AbstractEventHandler
@@ -72,13 +75,10 @@ Entities in Microservice 1:
 - Instance
 Entities in Microservice 2:
 - OptimisticLockingException
-- InstanceWebClientException
-- ResolveEndpointException
-- ResolveInstanceException
 
 
 
-# of method calls crossing microservices: 0
+# of method calls crossing microservices: 1
 # of entity references crossing microservices: 4
 # of entity usages crossing microservices: 0
-# of methods persisting entities of other microservices: 8
+# of methods persisting entities of other microservices: 7

@@ -1,29 +1,19 @@
-Found 13 microservices
-Total coupling value: 86.78392225855191 (6.675686327580916 avg.)
-Cohesion value: 0.85084602050036
+Found 14 microservices
+Total coupling value: 127.37356503157906 (9.098111787969932 avg.)
+Cohesion value: 0.8030701506114434
 
 Entities in Microservice 0:
 - LastFmCache
-- ConfigurationPropertiesService
+- SonosSoapFault
+- UpnpContentProcessor
 - PodcastChannel
 - UserSettingsValidator
-- MonitoredOutputStream
-- MonitoredDiskFileItem
 Entities in Microservice 1:
-- JWTAuthenticationToken
 - LyricsInfo
-- PlayQueueInfo
 - ArtistInfo
-- UploadInfo
 - SimilarArtist
-- NowPlayingInfo
 - MediaFileEntry
-- SonosServiceRegistration
 - AlbumList
-- CustomContentDirectory
-- MSMediaReceiverRegistrarService
-- LastFMScrobbler
-- ListenBrainzScrobbler
 - MetaDataParser
 - MetaData
 - AudioPlayer
@@ -31,83 +21,94 @@ Entities in Microservice 1:
 - LambdaUtils
 - ArtistBio
 - MediaFile
-- PlayStatus
 - InternetRadio
-- MediaLibraryStatistics
-- MusicIndex
-- TransferStatus
 - SearchCriteria
-- Player
 - SearchResult
 - PlayQueue
-- MusicFolderContent
-- AlbumNotes
-- MediaFileWithUrlInfo
 - InternetRadioSource
 - MediaFileComparator
-- KnownLengthInputStreamResource
-- DatabaseSettingsCommand
-- PodcastSettingsCommand
-- CredentialsManagementCommand
-- AdvancedSettingsCommand
 - SearchCommand
-- MusicFolderSettingsCommand
-- MonitoredDiskFileItemFactory
-- PlayQueueInputStream
-- ShoutCastOutputStream
 Entities in Microservice 2:
-- RESTFilter
 - PodcastEpisode
-- JAXBWriter
 Entities in Microservice 3:
-- SaltedTokenPasswordEncoder
-- SaltToken
-- UserCredential
-Entities in Microservice 4:
+- JWTAuthenticationToken
+- PlayQueueInfo
+- UploadInfo
+- NowPlayingInfo
+- PlayStatus
+- TransferStatus
+- Player
 - Transcoding
 - VideoTranscodingSettings
-- RandomSearchCriteria
-- MusicFolder
+- MediaFileWithUrlInfo
+- KnownLengthInputStreamResource
 - EnumHolder
 - PlayerSettingsCommand
+- MonitoredDiskFileItemFactory
 - TranscodeInputStream
+- PlayQueueInputStream
+- ShoutCastOutputStream
+Entities in Microservice 4:
+- SaltedTokenPasswordEncoder
+- SaltToken
+- ConfigurationPropertiesService
+- LastFMScrobbler
+- ListenBrainzScrobbler
+- UserCredential
+- CredentialsManagementCommand
 Entities in Microservice 5:
-- SonosSoapFault
+- RESTFilter
 - SavedPlayQueue
+- WebApp
+- ServletDef
+- ServletMappingDef
+- JAXBWriter
 Entities in Microservice 6:
-- HexPasswordEncoder
-- RESTRequestParameterProcessingFilter
-- Version
+- RandomSearchCriteria
 - User
-- UserSettings
-- Avatar
-- Theme
-- PersonalSettingsCommand
+- MusicFolder
 - UserSettingsCommand
-- GeneralSettingsCommand
+- MusicFolderSettingsCommand
 Entities in Microservice 7:
 - Playlist
 Entities in Microservice 8:
 - Bookmark
-- WebApp
-- ServletDef
-- ServletMappingDef
 Entities in Microservice 9:
+- RESTRequestParameterProcessingFilter
+- SonosServiceRegistration
+- CustomContentDirectory
+- MSMediaReceiverRegistrarService
+- Version
+- UserSettings
+- Avatar
+- Theme
+- PersonalSettingsCommand
+- DatabaseSettingsCommand
+- PodcastSettingsCommand
+- AdvancedSettingsCommand
+- GeneralSettingsCommand
+Entities in Microservice 10:
+- MediaLibraryStatistics
+- MusicIndex
+- MusicFolderContent
+- AlbumNotes
 - LastFmCoverArt
 - Artist
 - Album
-Entities in Microservice 10:
-- UpnpContentProcessor
-- Share
 Entities in Microservice 11:
+- HexPasswordEncoder
+- Share
+- MonitoredOutputStream
+- MonitoredDiskFileItem
+Entities in Microservice 12:
 - Genres
 - Genre
-Entities in Microservice 12:
+Entities in Microservice 13:
 - AbstractDao
 
 
 
-# of method calls crossing microservices: 210
-# of entity references crossing microservices: 7
-# of entity usages crossing microservices: 250
-# of methods persisting entities of other microservices: 142
+# of method calls crossing microservices: 730
+# of entity references crossing microservices: 14
+# of entity usages crossing microservices: 241
+# of methods persisting entities of other microservices: 27

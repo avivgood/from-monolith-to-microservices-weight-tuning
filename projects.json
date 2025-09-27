@@ -1,4 +1,11 @@
 [
+  {
+      "name": "dddsample-core",
+      "source_basedir": "applications/dddsample-core/source/",
+      "analysis_results_basedir": "applications/dddsample-core/results/",
+      "github": "https://github.com/citerus/dddsample-core",
+      "has_refinement": false
+    },
     {
         "name": "spring-petclinic",
         "source_basedir": "applications/spring-petclinic/source/",
@@ -53,13 +60,6 @@
     "source_basedir": "applications/spring-boot-admin/source/",
     "analysis_results_basedir": "applications/spring-boot-admin/results/",
     "github": "https://github.com/codecentric/spring-boot-admin",
-    "has_refinement": false
-  },
-  {
-    "name": "dddsample-core",
-    "source_basedir": "applications/dddsample-core/source/",
-    "analysis_results_basedir": "applications/dddsample-core/results/",
-    "github": "https://github.com/citerus/dddsample-core",
     "has_refinement": false
   },
   {
