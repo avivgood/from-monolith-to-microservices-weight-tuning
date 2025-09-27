@@ -1,6 +1,6 @@
 Found 4 microservices
-Total coupling value: 3.068754212296618 (0.7671885530741545 avg.)
-Cohesion value: 0.8790940788811777
+Total coupling value: 2.1099068502923544 (0.5274767125730886 avg.)
+Cohesion value: 0.980084607336413
 
 Entities in Microservice 0:
 - Page
@@ -14,8 +14,11 @@ Entities in Microservice 0:
 - ArticleFavoriteCount
 - UserWithToken
 - UserData
+- NewArticleParam
 - User
+- Comment
 - LoginParam
+- NewCommentParam
 - FieldErrorResource
 - ErrorResourceSerializer
 - ErrorResource
@@ -24,18 +27,15 @@ Entities in Microservice 0:
 Entities in Microservice 1:
 - FollowRelation
 Entities in Microservice 2:
-- NewArticleParam
 - UpdateArticleParam
-- Comment
 - Article
 - Tag
-- NewCommentParam
 Entities in Microservice 3:
 - ArticleFavorite
 
 
 
-# of method calls crossing microservices: 9
+# of method calls crossing microservices: 2
 # of entity references crossing microservices: 0
 # of entity usages crossing microservices: 9
-# of methods persisting entities of other microservices: 0
+# of methods persisting entities of other microservices: 3

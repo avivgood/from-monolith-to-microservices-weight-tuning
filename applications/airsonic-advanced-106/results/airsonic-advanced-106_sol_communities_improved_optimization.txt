@@ -1,113 +1,113 @@
 Found 13 microservices
-Total coupling value: 105.16895084741645 (8.089919295955111 avg.)
-Cohesion value: 0.7987975776181813
+Total coupling value: 86.78392225855191 (6.675686327580916 avg.)
+Cohesion value: 0.85084602050036
 
 Entities in Microservice 0:
-- HexPasswordEncoder
 - LastFmCache
 - ConfigurationPropertiesService
 - PodcastChannel
 - UserSettingsValidator
-Entities in Microservice 1:
-- ArtistInfo
-- SimilarArtist
-- MediaFileEntry
-- AlbumList
-- MetaDataParser
-- MetaData
-- ArtistBio
-- MediaFile
-- LastFmCoverArt
-- Artist
-- MediaFileComparator
-- Album
 - MonitoredOutputStream
 - MonitoredDiskFileItem
-Entities in Microservice 2:
-- PodcastEpisode
-Entities in Microservice 3:
-- InternetRadio
-- PlayQueue
-- RandomSearchCriteria
-- InternetRadioSource
-- MusicFolder
-Entities in Microservice 4:
-- PlayQueueInfo
-- RESTFilter
-- AudioPlayer
-- PlayerTest
-- PlayStatus
-- TransferStatus
-- Player
-- Transcoding
-- VideoTranscodingSettings
-- KnownLengthInputStreamResource
-- EnumHolder
-- PlayerSettingsCommand
-- JAXBWriter
-- TranscodeInputStream
-- PlayQueueInputStream
-- ShoutCastOutputStream
-Entities in Microservice 5:
-- SaltedTokenPasswordEncoder
-- SaltToken
-- SonosSoapFault
-- UpnpContentProcessor
-- UserCredential
-Entities in Microservice 6:
-- SavedPlayQueue
-- WebApp
-- ServletDef
-- ServletMappingDef
-Entities in Microservice 7:
-- RESTRequestParameterProcessingFilter
+Entities in Microservice 1:
+- JWTAuthenticationToken
 - LyricsInfo
+- PlayQueueInfo
+- ArtistInfo
 - UploadInfo
+- SimilarArtist
 - NowPlayingInfo
+- MediaFileEntry
 - SonosServiceRegistration
+- AlbumList
 - CustomContentDirectory
 - MSMediaReceiverRegistrarService
 - LastFMScrobbler
 - ListenBrainzScrobbler
+- MetaDataParser
+- MetaData
+- AudioPlayer
+- PlayerTest
 - LambdaUtils
+- ArtistBio
+- MediaFile
+- PlayStatus
+- InternetRadio
+- MediaLibraryStatistics
 - MusicIndex
+- TransferStatus
 - SearchCriteria
-- Version
+- Player
 - SearchResult
+- PlayQueue
 - MusicFolderContent
 - AlbumNotes
+- MediaFileWithUrlInfo
+- InternetRadioSource
+- MediaFileComparator
+- KnownLengthInputStreamResource
+- DatabaseSettingsCommand
+- PodcastSettingsCommand
+- CredentialsManagementCommand
+- AdvancedSettingsCommand
+- SearchCommand
+- MusicFolderSettingsCommand
+- MonitoredDiskFileItemFactory
+- PlayQueueInputStream
+- ShoutCastOutputStream
+Entities in Microservice 2:
+- RESTFilter
+- PodcastEpisode
+- JAXBWriter
+Entities in Microservice 3:
+- SaltedTokenPasswordEncoder
+- SaltToken
+- UserCredential
+Entities in Microservice 4:
+- Transcoding
+- VideoTranscodingSettings
+- RandomSearchCriteria
+- MusicFolder
+- EnumHolder
+- PlayerSettingsCommand
+- TranscodeInputStream
+Entities in Microservice 5:
+- SonosSoapFault
+- SavedPlayQueue
+Entities in Microservice 6:
+- HexPasswordEncoder
+- RESTRequestParameterProcessingFilter
+- Version
 - User
 - UserSettings
 - Avatar
 - Theme
 - PersonalSettingsCommand
-- DatabaseSettingsCommand
 - UserSettingsCommand
-- PodcastSettingsCommand
-- CredentialsManagementCommand
-- AdvancedSettingsCommand
-- SearchCommand
 - GeneralSettingsCommand
-- MusicFolderSettingsCommand
-- MonitoredDiskFileItemFactory
-Entities in Microservice 8:
+Entities in Microservice 7:
 - Playlist
-Entities in Microservice 9:
+Entities in Microservice 8:
 - Bookmark
+- WebApp
+- ServletDef
+- ServletMappingDef
+Entities in Microservice 9:
+- LastFmCoverArt
+- Artist
+- Album
 Entities in Microservice 10:
-- JWTAuthenticationToken
-- MediaFileWithUrlInfo
+- UpnpContentProcessor
 - Share
 Entities in Microservice 11:
 - Genres
 - Genre
 Entities in Microservice 12:
-- MediaLibraryStatistics
 - AbstractDao
 
 
 
-# of method calls crossing microservices: 515
-# of entity references crossing microservices: 16
-# of entity usages crossing microservices: 322
-# of methods persisting entities of other microservices: 28
+# of method calls crossing microservices: 210
+# of entity references crossing microservices: 7
+# of entity usages crossing microservices: 250
+# of methods persisting entities of other microservices: 142
