@@ -1,0 +1,12 @@
+{
+  "exclude_packages": [],
+  "exclude_classes": [],
+  "force_entity_packages": ["org.jeecg.modules.*.entity"],
+  "force_entity_classes": [],
+  "force_logic_packages": ["org.jeecg.modules.*.service", "org.jeecg.modules.*.service.impl"],
+  "force_logic_classes": [],
+  "force_repository_packages": ["org.jeecg.modules.*.mapper"],
+  "force_repository_classes": [],
+  "force_repository_interface_package": ["org.jeecg.modules.*.mapper"],
+  "force_repository_interface_class": []
+}

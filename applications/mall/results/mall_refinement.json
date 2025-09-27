@@ -1,0 +1,12 @@
+{
+  "exclude_packages": [],
+  "exclude_classes": [],
+  "force_entity_packages": ["com.macro.mall.model"],
+  "force_entity_classes": [],
+  "force_logic_packages": ["com.macro.mall.service", "com.macro.mall.service.impl"],
+  "force_logic_classes": [],
+  "force_repository_packages": ["com.macro.mall.mapper", "com.macro.mall.dao", "com.macro.mall.*.dao"],
+  "force_repository_classes": [],
+  "force_repository_interface_package": ["com.macro.mall.mapper", "com.macro.mall.dao", "com.macro.mall.*.dao"],
+  "force_repository_interface_class": []
+}

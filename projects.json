@@ -81,15 +81,23 @@
     "source_basedir": "applications/JeecgBoot/source/",
     "analysis_results_basedir": "applications/JeecgBoot/results/",
     "github": "https://github.com/jeecgboot/jeecg-boot",
-    "has_refinement": false
+    "has_refinement": true
   },
   {
     "name": "RuoYi-Vue",
     "source_basedir": "applications/RuoYi-Vue/source/",
     "analysis_results_basedir": "applications/RuoYi-Vue/results/",
     "github": "https://github.com/yangzongzhuan/RuoYi-Vue",
-    "has_refinement": false
+    "has_refinement": true
   },
+  {
+  "name": "mall",
+  "source_basedir": "applications/mall/source/",
+  "analysis_results_basedir": "applications/mall/results/",
+  "github": "https://github.com/macrozheng/mall",
+  "has_refinement": true
+  },
+
   {
     "name": "zipkin",
     "source_basedir": "applications/zipkin/source/",

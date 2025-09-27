@@ -1,0 +1,12 @@
+{
+  "exclude_packages": [],
+  "exclude_classes": [],
+  "force_entity_packages": ["com.ruoyi.*.domain", "com.ruoyi.common.core.domain.entity"],
+  "force_entity_classes": [],
+  "force_logic_packages": ["com.ruoyi.*.service", "com.ruoyi.*.service.impl"],
+  "force_logic_classes": [],
+  "force_repository_packages": ["com.ruoyi.*.mapper"],
+  "force_repository_classes": [],
+  "force_repository_interface_package": ["com.ruoyi.*.mapper"],
+  "force_repository_interface_class": []
+}
