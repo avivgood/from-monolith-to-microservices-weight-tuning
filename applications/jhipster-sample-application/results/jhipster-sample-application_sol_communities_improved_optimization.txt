@@ -1,5 +1,5 @@
 Found 1 microservices
-Total coupling value: 1.7763568394002505e-14 (1.7763568394002505e-14 avg.)
+Total coupling value: -4.263256414560601e-14 (-4.263256414560601e-14 avg.)
 Cohesion value: 1.0
 
 Entities in Microservice 0:

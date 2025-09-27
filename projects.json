@@ -1,4 +1,11 @@
 [
+  {
+    "name": "shopizer-2x",
+    "source_basedir": "applications/shopizer-2x/source/",
+    "analysis_results_basedir": "applications/shopizer-2x/results/",
+    "github": "https://github.com/shopizer-ecommerce/shopizer",
+    "has_refinement": false
+  },
     {
         "name": "spring-petclinic",
         "source_basedir": "applications/spring-petclinic/source/",
