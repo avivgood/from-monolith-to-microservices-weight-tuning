@@ -1,0 +1,20 @@
+{
+  "exclude_packages": [],
+  "exclude_classes": [],
+  "force_entity_packages": ["zipkin2", "zipkin"],
+  "force_entity_classes": [],
+  "force_logic_packages": ["zipkin2.server", "zipkin2.server.internal", "zipkin2.collector", "zipkin2.collector.*"],
+  "force_logic_classes": [],
+  "force_repository_packages": [
+    "zipkin2.storage",
+    "zipkin2.storage.*",
+    "zipkin2.storage.mysql.v1",
+    "zipkin2.storage.cassandra",
+    "zipkin2.storage.cassandra.v1",
+    "zipkin2.elasticsearch",
+    "zipkin2.elasticsearch.*"
+  ],
+  "force_repository_classes": [],
+  "force_repository_interface_package": ["zipkin2.storage"],
+  "force_repository_interface_class": []
+}
