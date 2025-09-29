@@ -56,13 +56,6 @@
     "has_refinement": false
   },
   {
-    "name": "spring-boot-admin",
-    "source_basedir": "applications/spring-boot-admin/source/",
-    "analysis_results_basedir": "applications/spring-boot-admin/results/",
-    "github": "https://github.com/codecentric/spring-boot-admin",
-    "has_refinement": false
-  },
-  {
     "name": "realworld-spring",
     "source_basedir": "applications/realworld-spring/source/",
     "analysis_results_basedir": "applications/realworld-spring/results/",
@@ -103,6 +96,6 @@
     "source_basedir": "applications/zipkin/source/",
     "analysis_results_basedir": "applications/zipkin/results/",
     "github": "https://github.com/openzipkin/zipkin",
-    "has_refinement": false
+    "has_refinement": true
   }
 ]

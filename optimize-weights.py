@@ -12,15 +12,21 @@ import papermill
 import json
 from statistics import mean
 import scrapbook as sb
+import time
+import random
+
+from ax.storage.sqa_store.structs import DBSettings
 
 
 def parse_metrics(trial_output: dict) -> float:
-    norm_cohesion = 1 - trial_output["cohesion"]
+    norm_cohesion = trial_output["cohesion"]
     norm_coupling = trial_output["avg_cop"] / trial_output["total_w"]
     return mean([norm_cohesion, norm_coupling])
 
 def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float):
     try:
+        # Jitter for preventing ZMQ port collisions
+        time.sleep(random.uniform(0.01, 0.3))
         papermill.execute_notebook(
             "1-System_analysis.ipynb",
             output_path=f"outputs/output_step_1_{project["name"]}.ipynb",
@@ -71,8 +77,10 @@ gs = GenerationStrategy(steps=[
     GenerationStep(generator=Generators.SOBOL,            num_trials=6),
     GenerationStep(generator=Generators.BOTORCH_MODULAR,  num_trials=20),  # or Generators.BO_MIXED for mixed spaces
 ])
+db_settings = DBSettings(url="sqlite:///ax.sqlite")
 client = AxClient(
     generation_strategy=gs,
+    db_settings=db_settings
 )
 client.create_experiment(
     name="Weight Optimization For Monolith Decomposition",
