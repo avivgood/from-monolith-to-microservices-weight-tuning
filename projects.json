@@ -90,7 +90,6 @@
   "github": "https://github.com/macrozheng/mall",
   "has_refinement": true
   },
-
   {
     "name": "zipkin",
     "source_basedir": "applications/zipkin/source/",

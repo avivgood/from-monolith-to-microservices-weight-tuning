@@ -1,14 +1,11 @@
 from concurrent.futures.process import ProcessPoolExecutor
 import itertools
 import sys
-from typing import Any
-
-from ax import RangeParameterConfig
-from ax.adapter.registry import Models, Generators
+import ax
+from ax.adapter.registry import Generators
 from ax.generation_strategy.generation_node import GenerationStep
 from ax.generation_strategy.generation_strategy import GenerationStrategy
 from ax.service.ax_client import AxClient
-from ax.core import RangeParameter, OptimizationConfig, Objective
 from ax.service.utils.instantiation import ObjectiveProperties
 import papermill
 import json
@@ -16,50 +13,36 @@ from statistics import mean
 import scrapbook as sb
 import time
 import random
-import networkx as nx
-
-
+import psutil
+import os
+import glob
+from ax.storage.sqa_store.db import init_engine_and_session_factory, get_engine, create_all_tables
 from ax.storage.sqa_store.structs import DBSettings
 
-import collections
+DB_URL = "sqlite:///ax.sqlite"
+EXP_NAME = "Weight Optimization For Monolith Decomposition"
+CORES = psutil.cpu_count(logical=False)
 
-def microservice_of(node: int):
-    for k in range(n_micros):
-        if (x[node, k].x == 1):
-            return k
+init_engine_and_session_factory(url=DB_URL)
+create_all_tables(get_engine())  # idempotent
 
-def inbound_connections(g: nx.DiGraph, node: int):
+def ensure_directories():
 
-    for pred_node in g.predecessors(node):
-        if microservice_of(pred_node) == microservice_of(node):
-            return True
+    # ensure outputs/ exists
+    os.makedirs("outputs", exist_ok=True)
 
-    return False
+    # ensure results/ inside every applications/*/
+    for app_dir in glob.glob("applications/*/"):
+        results_dir = os.path.join(app_dir, "results")
+        os.makedirs(results_dir, exist_ok=True)
 
-def calculate_ifn() -> float:
-    interface_method_sets = set()
-    for i in g.nodes():
-        if g.nodes[i]['type'] == 'Entity':
-            break
-
-        if inbound_connections(g, i):
-            break
-
-        entities_for_method = set()
-
-        for j in g.successors(i):
-            if g.nodes[j]['type'] == 'Entity' and microservice_of(j) == microservice_of(i):
-                entities_for_method.add(j)
-
-        interface_method_sets.add(frozenset(entities_for_method))
-
-    return n_micros / len(interface_method_sets)
+ensure_directories()
 
 def parse_metrics(trial_output: dict) -> float:
-    # TODO check
+    norm_ifn = 1 - (1 / trial_output["ifn"])
     norm_cohesion = 1 - trial_output["cohesion"]
     norm_coupling = trial_output["avg_cop"] / trial_output["total_w"]
-    return mean([norm_cohesion, norm_coupling])
+    return mean([norm_cohesion, norm_coupling, norm_ifn])
 
 def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float):
     try:
@@ -73,7 +56,8 @@ def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_
                 "read_from_file": project["has_refinement"],
                 "update_refinement": False,
                 "headless": True
-            }
+            },
+            kernel_shutdown_timeout=5
         )
         papermill.execute_notebook(
             "2-Decomposition_optimization.ipynb",
@@ -88,7 +72,8 @@ def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_
                     "Uses": w_uses
                 },
                 "headless": True
-            }
+            },
+            kernel_shutdown_timeout=5
         )
         avg = parse_metrics(sb.read_notebook(f"outputs/output_step_2_{project["name"]}.ipynb").scraps.data_dict)
         print(f"finished executing {project['name']}, {avg=}", file=sys.stderr)
@@ -102,7 +87,7 @@ def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_referen
         with open("projects.json", "r") as f:
             projects = json.load(f)
 
-        with ProcessPoolExecutor(max_workers=10) as executor:
+        with ProcessPoolExecutor(max_workers=CORES) as executor:
             results = executor.map(run_and_collect_metrics, projects, itertools.repeat(w_persists), itertools.repeat(w_calls), itertools.repeat(w_uses), itertools.repeat(w_references), itertools.repeat(w_extends))
 
         return mean(list(results))
@@ -111,63 +96,68 @@ def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_referen
         print(e, file=sys.stderr)
         raise
 
-gs = GenerationStrategy(steps=[
+generation_strat = GenerationStrategy(steps=[
     GenerationStep(generator=Generators.SOBOL,            num_trials=6),
     GenerationStep(generator=Generators.BOTORCH_MODULAR,  num_trials=20),  # or Generators.BO_MIXED for mixed spaces
 ])
-db_settings = DBSettings(url="sqlite:///ax.sqlite")
+db_settings = DBSettings(url=DB_URL)
 client = AxClient(
-    generation_strategy=gs,
+    generation_strategy=generation_strat,
     db_settings=db_settings
 )
-client.create_experiment(
-    name="Weight Optimization For Monolith Decomposition",
-    description="Experiment for finding the best weights for the constructed graph per relationship type,"
-                " such that the best decomposition is resulted on average",
-    owners=["Aviv Vataru"],
-    parameters=[
-        {
-            "name": "w_persists",
-            "type": "range",
-            "bounds": [0.000001, 1.0],
-            "value_type": "float"
+try:
+    client.load_experiment_from_database(EXP_NAME)
+except Exception as e:
+    client.create_experiment(
+        name=EXP_NAME,
+        description="Experiment for finding the best weights for the constructed graph per relationship type,"
+                    " such that the best decomposition is resulted on average",
+        owners=["Aviv Vataru"],
+        parameters=[
+            {
+                "name": "w_persists",
+                "type": "range",
+                "bounds": [0.000001, 1.0],
+                "value_type": "float"
+            },
+            {
+                "name": "w_calls",
+                "type": "range",
+                "bounds": [0.000001, 1.0],
+                "value_type": "float"
+            },
+            {
+                "name": "w_uses",
+                "type": "range",
+                "bounds": [0.000001, 1.0],
+                "value_type": "float"
+            },
+            {
+                "name": "w_references",
+                "type": "range",
+                "bounds": [0.000001, 1.0],
+                "value_type": "float"
+            }
+        ],
+        objectives={
+            "decomposition_metric_mean": ObjectiveProperties(
+                minimize=True
+            )
         },
-        {
-            "name": "w_calls",
-            "type": "range",
-            "bounds": [0.000001, 1.0],
-            "value_type": "float"
-        },
-        {
-            "name": "w_uses",
-            "type": "range",
-            "bounds": [0.000001, 1.0],
-            "value_type": "float"
-        },
-        {
-            "name": "w_references",
-            "type": "range",
-            "bounds": [0.000001, 1.0],
-            "value_type": "float"
-        }
-    ],
-    objectives={
-        "decomposition_metric_mean": ObjectiveProperties(
-            minimize=True
-        )
-    },
-    parameter_constraints=[  # prevents all being 0
-        "w_persists + w_calls + w_uses + w_references <= 0.99999",
-    ],
+        parameter_constraints=[  # prevents all being 0
+            "w_persists + w_calls + w_uses + w_references <= 0.99999",
+        ],
 
-)
+    )
 
-for _ in range(25):
-    data = client.get_next_trials(max_trials=1)
-    client.complete_trial(trial_index=list(data[0].keys())[0],
-                          raw_data={"decomposition_metric_mean": run_with_weights(**list(data[0].values())[0])})
 
-print(client.get_best_parameters())
-print("============")
-print(client.get_best_trial())
-print(data)
+if __name__ == "__main__":
+    for _ in range(26):
+        data = client.get_next_trials(max_trials=1)
+        client.complete_trial(trial_index=list(data[0].keys())[0],
+                              raw_data={"decomposition_metric_mean": run_with_weights(**list(data[0].values())[0])})
+
+    print(client.get_best_parameters())
+    print("============")
+    print(client.get_best_trial())
+    print(data)

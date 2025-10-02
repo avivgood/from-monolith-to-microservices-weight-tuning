@@ -4,7 +4,7 @@ applications/*/results/*
 
 # But keep anything with "refinement" in the filename
 !applications/*/results/*refinement*
-
+ax.sqlite
 # Created by https://www.toptal.com/developers/gitignore/api/obsidian,python,jupyternotebooks,linux,windows,visualstudiocode,jetbrains+all,pycharm+all
 # Edit at https://www.toptal.com/developers/gitignore?templates=obsidian,python,jupyternotebooks,linux,windows,visualstudiocode,jetbrains+all,pycharm+all
 
