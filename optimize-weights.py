@@ -1,6 +1,8 @@
 from concurrent.futures.process import ProcessPoolExecutor
 import itertools
 import sys
+from typing import Any
+
 from ax import RangeParameterConfig
 from ax.adapter.registry import Models, Generators
 from ax.generation_strategy.generation_node import GenerationStep
@@ -14,12 +16,48 @@ from statistics import mean
 import scrapbook as sb
 import time
 import random
+import networkx as nx
+
 
 from ax.storage.sqa_store.structs import DBSettings
 
+import collections
+
+def microservice_of(node: int):
+    for k in range(n_micros):
+        if (x[node, k].x == 1):
+            return k
+
+def inbound_connections(g: nx.DiGraph, node: int):
+
+    for pred_node in g.predecessors(node):
+        if microservice_of(pred_node) == microservice_of(node):
+            return True
+
+    return False
+
+def calculate_ifn() -> float:
+    interface_method_sets = set()
+    for i in g.nodes():
+        if g.nodes[i]['type'] == 'Entity':
+            break
+
+        if inbound_connections(g, i):
+            break
+
+        entities_for_method = set()
+
+        for j in g.successors(i):
+            if g.nodes[j]['type'] == 'Entity' and microservice_of(j) == microservice_of(i):
+                entities_for_method.add(j)
+
+        interface_method_sets.add(frozenset(entities_for_method))
+
+    return n_micros / len(interface_method_sets)
 
 def parse_metrics(trial_output: dict) -> float:
-    norm_cohesion = trial_output["cohesion"]
+    # TODO check
+    norm_cohesion = 1 - trial_output["cohesion"]
     norm_coupling = trial_output["avg_cop"] / trial_output["total_w"]
     return mean([norm_cohesion, norm_coupling])
 
