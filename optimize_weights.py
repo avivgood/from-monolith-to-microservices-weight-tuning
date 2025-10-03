@@ -45,7 +45,7 @@ def parse_metrics(trial_output: dict) -> float:
     norm_coupling = trial_output["avg_cop"] / trial_output["total_w"]
     return mean([norm_cohesion, norm_coupling, norm_ifn])
 
-@retry(stop=stop_after_attempt(3))
+@retry(stop=stop_after_attempt(1))
 def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float):
     try:
         # Jitter for preventing ZMQ port collisions
@@ -107,6 +107,7 @@ client = AxClient(
     generation_strategy=generation_strat,
     db_settings=db_settings
 )
+
 try:
     client.load_experiment_from_database(EXP_NAME)
 except Exception as e:
@@ -151,7 +152,6 @@ except Exception as e:
         ],
 
     )
-
 
 if __name__ == "__main__":
     for _ in range(26):
