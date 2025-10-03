@@ -18,6 +18,7 @@ import os
 import glob
 from ax.storage.sqa_store.db import init_engine_and_session_factory, get_engine, create_all_tables
 from ax.storage.sqa_store.structs import DBSettings
+from tenacity import retry, stop_after_attempt
 
 DB_URL = "sqlite:///ax.sqlite"
 EXP_NAME = "Weight Optimization For Monolith Decomposition"
@@ -44,6 +45,7 @@ def parse_metrics(trial_output: dict) -> float:
     norm_coupling = trial_output["avg_cop"] / trial_output["total_w"]
     return mean([norm_cohesion, norm_coupling, norm_ifn])
 
+@retry(stop=stop_after_attempt(3))
 def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float):
     try:
         # Jitter for preventing ZMQ port collisions
