@@ -52,6 +52,8 @@ def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_
     try:
         # Jitter for preventing ZMQ port collisions
         time.sleep(random.uniform(0.01, 0.3))
+        # Uncomment the following iff the Java code changes
+        """
         papermill.execute_notebook(
             "1-System_analysis.ipynb",
             output_path=f"outputs/output_step_1_{project["name"]}.ipynb",
@@ -63,6 +65,7 @@ def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_
             },
             kernel_shutdown_timeout=5
         )
+        """
         papermill.execute_notebook(
             "2-Decomposition_optimization.ipynb",
             output_path=f"outputs/output_step_2_{project["name"]}.ipynb",
@@ -84,6 +87,7 @@ def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_
         avg = parse_metrics(sb.read_notebook(f"outputs/output_step_2_{project["name"]}.ipynb").scraps.data_dict)
         print(f"finished executing {project['name']}, {avg=}", file=sys.stderr)
         return avg
+
     except Exception as e:
         raise ValueError(f"Exception from project {project['name']} {w_persists}, {w_calls}, {w_uses}, {w_references}, {w_extends}") from e
 
@@ -103,7 +107,7 @@ def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_referen
         raise
 
 generation_strat = GenerationStrategy(steps=[
-    GenerationStep(generator=Generators.SOBOL,            num_trials=6),
+    GenerationStep(generator=Generators.SOBOL,            num_trials=8),
     GenerationStep(generator=Generators.BOTORCH_MODULAR,  num_trials=20),  # or Generators.BO_MIXED for mixed spaces
 ])
 db_settings = DBSettings(url=DB_URL)
