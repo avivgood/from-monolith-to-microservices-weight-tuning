@@ -173,11 +173,23 @@ except Exception as e:
 
     )
 
+
+
 if __name__ == "__main__":
-    for _ in range(26):
-        data = client.get_next_trials(max_trials=1)
-        client.complete_trial(trial_index=list(data[0].keys())[0],
-                              raw_data={"decomposition_metric_mean": run_with_weights(**list(data[0].values())[0])})
+    for _ in range(28):
+        pending = [t.index for t in client.experiment.trials.values()
+                   if t.status.is_running or t.status.is_candidate]
+        if len(pending) > 0:
+            # Recover any abounded trails
+            data = client.get_trial(pending[0])
+
+            client.complete_trial(trial_index=data.index,
+                                  raw_data={"decomposition_metric_mean": run_with_weights(**client.get_trial_parameters(data.index))})
+        else:
+            data = client.get_next_trials(max_trials=1)
+
+            client.complete_trial(trial_index=list(data[0].keys())[0],
+                                  raw_data={"decomposition_metric_mean": run_with_weights(**list(data[0].values())[0])})
 
     print(client.get_best_parameters())
     print("============")
