@@ -40,13 +40,15 @@ def ensure_directories():
 ensure_directories()
 
 def parse_metrics(trial_output: dict) -> float:
-    norm_ifn = 1 - (1 / trial_output["ifn"])
-    norm_cohesion = 1 - trial_output["cohesion"]
-    norm_coupling = trial_output["avg_cop"] / trial_output["total_w"]
-    return mean([norm_cohesion, norm_coupling, norm_ifn])
+    norm_ifn = 1.0 - (1.0 / float(trial_output["ifn"]))
+    norm_cohesion = 1.0 - trial_output["cohesion"]
+    norm_coupling = float(trial_output["avg_cop"]) / (float(trial_output["total_w"]) / float(trial_output["n_micros"]))
+    norm_mcalls = float(trial_output["n_calls"]) / float(trial_output["n_calls_global"])
+    norm_refs = float(trial_output["n_refs"]) / float(trial_output["n_refs_global"])
+    return mean([norm_cohesion, norm_coupling, norm_ifn, norm_mcalls, norm_refs])
 
 @retry(stop=stop_after_attempt(1))
-def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float):
+def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float, precision_1: float, precision_2: float):
     try:
         # Jitter for preventing ZMQ port collisions
         time.sleep(random.uniform(0.01, 0.3))
@@ -73,7 +75,9 @@ def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_
                     "Extends": w_extends,
                     "Uses": w_uses
                 },
-                "headless": True
+                "headless": True,
+                "precision_1": precision_1,
+                "precision_2": precision_2
             },
             kernel_shutdown_timeout=5
         )
@@ -83,14 +87,14 @@ def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_
     except Exception as e:
         raise ValueError(f"Exception from project {project['name']} {w_persists}, {w_calls}, {w_uses}, {w_references}, {w_extends}") from e
 
-def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float):
+def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float, precision_1: float, precision_2: float):
     w_extends = 1 - w_persists - w_calls - w_uses - w_references
     try:
         with open("projects.json", "r") as f:
             projects = json.load(f)
 
         with ProcessPoolExecutor(max_workers=CORES) as executor:
-            results = executor.map(run_and_collect_metrics, projects, itertools.repeat(w_persists), itertools.repeat(w_calls), itertools.repeat(w_uses), itertools.repeat(w_references), itertools.repeat(w_extends))
+            results = executor.map(run_and_collect_metrics, projects, itertools.repeat(w_persists), itertools.repeat(w_calls), itertools.repeat(w_uses), itertools.repeat(w_references), itertools.repeat(w_extends), itertools.repeat(precision_1), itertools.repeat(precision_2))
 
         return mean(list(results))
 
@@ -140,6 +144,18 @@ except Exception as e:
                 "type": "range",
                 "bounds": [0.000001, 1.0],
                 "value_type": "float"
+            },
+            {
+                "name": "precision_1",
+                "type": "range",
+                "bounds": [0, 2.0],
+                "value_type": "float"
+            },
+            {
+                "name": "precision_2",
+                "type": "range",
+                "bounds": [0, 2.0],
+                "value_type": "float"
             }
         ],
         objectives={
@@ -162,4 +178,5 @@ if __name__ == "__main__":
     print(client.get_best_parameters())
     print("============")
     print(client.get_best_trial())
+    print("============")
     print(data)
