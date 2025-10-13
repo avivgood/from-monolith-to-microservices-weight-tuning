@@ -31,6 +31,7 @@ def ensure_directories():
 
     # ensure outputs/ exists
     os.makedirs("outputs", exist_ok=True)
+    os.makedirs("trails", exist_ok=True)
 
     # ensure results/ inside every applications/*/
     for app_dir in glob.glob("applications/*/"):
@@ -47,8 +48,24 @@ def parse_metrics(trial_output: dict) -> float:
     norm_refs = float(trial_output["n_refs"]) / float(trial_output["n_refs_global"])
     return mean([norm_cohesion, norm_coupling, norm_ifn, norm_mcalls, norm_refs])
 
-@retry(stop=stop_after_attempt(1))
-def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float, precision_1: float, precision_2: float):
+def parse_metrics_fixed(trial_output: dict) -> tuple[float, dict]:
+    norm_ifn = 1.0 - (1.0 / float(trial_output["ifn"]))
+    norm_cohesion = 1.0 - trial_output["cohesion_fixed"]
+    norm_coupling = float(trial_output["avg_cop_fixed"]) / (float(trial_output["total_w_fixed"]) / float(trial_output["n_micros"]))
+    norm_mcalls = float(trial_output["n_calls"]) / float(trial_output["n_calls_global"])
+    norm_refs = float(trial_output["n_refs"]) / float(trial_output["n_refs_global"])
+    avg =  mean([norm_cohesion, norm_coupling, norm_ifn, norm_mcalls, norm_refs])
+    trail_data = dict(trial_output)
+    trail_data.update({"norm_ifn": norm_ifn,
+                       "norm_cohesion": norm_cohesion,
+                       "norm_coupling": norm_coupling,
+                       "norm_mcalls": norm_mcalls,
+                       "norm_refs": norm_refs,
+                       "avg": avg})
+    return avg, trail_data
+
+
+def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float, precision_1: float, precision_2: float, trail_idx):
     try:
         # Jitter for preventing ZMQ port collisions
         time.sleep(random.uniform(0.01, 0.3))
@@ -84,21 +101,24 @@ def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_
             },
             kernel_shutdown_timeout=5
         )
-        avg = parse_metrics(sb.read_notebook(f"outputs/output_step_2_{project["name"]}.ipynb").scraps.data_dict)
+        os.makedirs(f'trails/{project["name"]}', exist_ok=True)
+        avg, diagnostics = parse_metrics_fixed(sb.read_notebook(f"outputs/output_step_2_{project["name"]}.ipynb").scraps.data_dict)
+        with open(f"trails/{project['name']}/{trail_idx}.json", "w") as f:
+            json.dump(diagnostics, f)
         print(f"finished executing {project['name']}, {avg=}", file=sys.stderr)
         return avg
 
     except Exception as e:
         raise ValueError(f"Exception from project {project['name']} {w_persists}, {w_calls}, {w_uses}, {w_references}, {w_extends}") from e
 
-def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float, precision_1: float, precision_2: float):
+def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float, precision_1: float, precision_2: float, trail_idx: int):
     w_extends = 1 - w_persists - w_calls - w_uses - w_references
     try:
         with open("projects.json", "r") as f:
             projects = json.load(f)
 
         with ProcessPoolExecutor(max_workers=CORES) as executor:
-            results = executor.map(run_and_collect_metrics, projects, itertools.repeat(w_persists), itertools.repeat(w_calls), itertools.repeat(w_uses), itertools.repeat(w_references), itertools.repeat(w_extends), itertools.repeat(precision_1), itertools.repeat(precision_2))
+            results = executor.map(run_and_collect_metrics, projects, itertools.repeat(w_persists), itertools.repeat(w_calls), itertools.repeat(w_uses), itertools.repeat(w_references), itertools.repeat(w_extends), itertools.repeat(precision_1), itertools.repeat(precision_2), itertools.repeat(trail_idx))
 
         return mean(list(results))
 
@@ -184,12 +204,12 @@ if __name__ == "__main__":
             data = client.get_trial(pending[0])
 
             client.complete_trial(trial_index=data.index,
-                                  raw_data={"decomposition_metric_mean": run_with_weights(**client.get_trial_parameters(data.index))})
+                                  raw_data={"decomposition_metric_mean": run_with_weights(trail_idx=data.index, **client.get_trial_parameters(data.index))})
         else:
             data = client.get_next_trials(max_trials=1)
 
             client.complete_trial(trial_index=list(data[0].keys())[0],
-                                  raw_data={"decomposition_metric_mean": run_with_weights(**list(data[0].values())[0])})
+                                  raw_data={"decomposition_metric_mean": run_with_weights(trail_idx=list(data[0].keys())[0], **list(data[0].values())[0])})
 
     print(client.get_best_parameters())
     print("============")
