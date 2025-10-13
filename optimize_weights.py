@@ -111,8 +111,7 @@ def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_
     except Exception as e:
         raise ValueError(f"Exception from project {project['name']} {w_persists}, {w_calls}, {w_uses}, {w_references}, {w_extends}") from e
 
-def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float, precision_1: float, precision_2: float, trail_idx: int):
-    w_extends = 1 - w_persists - w_calls - w_uses - w_references
+def run_with_extended_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float, precision_1: float, precision_2: float, trail_idx: int):
     try:
         with open("projects.json", "r") as f:
             projects = json.load(f)
@@ -125,6 +124,10 @@ def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_referen
     except Exception as e:
         print(e, file=sys.stderr)
         raise
+
+def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float, precision_1: float, precision_2: float, trail_idx: int):
+    w_extends = 1 - w_persists - w_calls - w_uses - w_references
+    return run_with_extended_weights(w_persists, w_calls, w_uses, w_references, w_extends, precision_1, precision_2)
 
 generation_strat = GenerationStrategy(steps=[
     GenerationStep(generator=Generators.SOBOL,            num_trials=8),
