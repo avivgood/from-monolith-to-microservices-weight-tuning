@@ -1,6 +1,8 @@
 from concurrent.futures.process import ProcessPoolExecutor
 import itertools
 import sys
+from typing import Any
+
 import ax
 from ax.adapter.registry import Generators
 from ax.generation_strategy.generation_node import GenerationStep
@@ -20,12 +22,15 @@ from ax.storage.sqa_store.db import init_engine_and_session_factory, get_engine,
 from ax.storage.sqa_store.structs import DBSettings
 from tenacity import retry, stop_after_attempt
 
+
 DB_URL = "sqlite:///ax.sqlite"
 EXP_NAME = "Weight Optimization For Monolith Decomposition"
 CORES = psutil.cpu_count(logical=False)
 
+
 init_engine_and_session_factory(url=DB_URL)
 create_all_tables(get_engine())  # idempotent
+
 
 def ensure_directories():
 
@@ -38,7 +43,9 @@ def ensure_directories():
         results_dir = os.path.join(app_dir, "results")
         os.makedirs(results_dir, exist_ok=True)
 
+
 ensure_directories()
+
 
 def penalty_hhi(w):
     n = len(w)
@@ -48,6 +55,7 @@ def penalty_hhi(w):
     p = [wi/s for wi in w]
     hhi = sum(pi*pi for pi in p)
     return (hhi - 1/n) / (1 - 1/n)
+
 
 def penalty_precision(gamma_1: float, gamma_2: float) -> float:
     gamma_1_panelty = abs(gamma_1 - 1.0)**2
@@ -127,9 +135,9 @@ def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_
         raise ValueError(f"Exception from project {project['name']} {w_persists}, {w_calls}, {w_uses}, {w_references}, {w_extends}") from e
 
 @retry(stop=stop_after_attempt(2))
-def run_with_extended_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float, precision_1: float, precision_2: float, trail_idx: int):
+def run_with_extended_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float, precision_1: float, precision_2: float, trail_idx: Any, projects_file: str = "projects/projects.json"):
     try:
-        with open("projects.json", "r") as f:
+        with open(projects_file, "r") as f:
             projects = json.load(f)
 
         with ProcessPoolExecutor(max_workers=CORES) as executor:
@@ -145,13 +153,9 @@ def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_referen
     w_extends = 1 - w_persists - w_calls - w_uses - w_references
     return run_with_extended_weights(w_persists, w_calls, w_uses, w_references, w_extends, precision_1, precision_2, trail_idx)
 
-generation_strat = GenerationStrategy(steps=[
-    GenerationStep(generator=Generators.SOBOL,            num_trials=8),
-    GenerationStep(generator=Generators.BOTORCH_MODULAR,  num_trials=20),  # or Generators.BO_MIXED for mixed spaces
-])
+
 db_settings = DBSettings(url=DB_URL)
 client = AxClient(
-    generation_strategy=generation_strat,
     db_settings=db_settings
 )
 
@@ -215,23 +219,25 @@ except Exception as e:
 
 
 if __name__ == "__main__":
-    for _ in range(28):
-        pending = [t.index for t in client.experiment.trials.values()
-                   if t.status.is_running or t.status.is_candidate]
-        if len(pending) > 0:
-            # Recover any abounded trails
-            data = client.get_trial(pending[0])
+    try:
+        while True:
+            pending = [t.index for t in client.experiment.trials.values()
+                       if t.status.is_running or t.status.is_candidate]
+            if len(pending) > 0:
+                # Recover any abounded trails
+                data = client.get_trial(pending[0])
 
-            client.complete_trial(trial_index=data.index,
-                                  raw_data={"decomposition_metric_mean": run_with_weights(trail_idx=data.index, **client.get_trial_parameters(data.index))})
-        else:
-            data = client.get_next_trials(max_trials=1)
+                client.complete_trial(trial_index=data.index,
+                                      raw_data={"decomposition_metric_mean": run_with_weights(trail_idx=data.index, **client.get_trial_parameters(data.index))})
+            else:
+                data = client.get_next_trials(max_trials=1)
 
-            client.complete_trial(trial_index=list(data[0].keys())[0],
-                                  raw_data={"decomposition_metric_mean": run_with_weights(trail_idx=list(data[0].keys())[0], **list(data[0].values())[0])})
+                client.complete_trial(trial_index=list(data[0].keys())[0],
+                                      raw_data={"decomposition_metric_mean": run_with_weights(trail_idx=list(data[0].keys())[0], **list(data[0].values())[0])})
+
+    except KeyboardInterrupt:
+        pass
 
     print(client.get_best_parameters())
     print("============")
     print(client.get_best_trial())
-    print("============")
-    print(data)
