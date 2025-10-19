@@ -40,28 +40,42 @@ def ensure_directories():
 
 ensure_directories()
 
-def parse_metrics(trial_output: dict) -> float:
-    norm_ifn = 1.0 - (1.0 / float(trial_output["ifn"]))
-    norm_cohesion = 1.0 - trial_output["cohesion"]
-    norm_coupling = float(trial_output["avg_cop"]) / (float(trial_output["total_w"]) / float(trial_output["n_micros"]))
-    norm_mcalls = float(trial_output["n_calls"]) / float(trial_output["n_calls_global"])
-    norm_refs = float(trial_output["n_refs"]) / float(trial_output["n_refs_global"])
-    return mean([norm_cohesion, norm_coupling, norm_ifn, norm_mcalls, norm_refs])
+def penalty_hhi(w):
+    n = len(w)
+    s = sum(w)
+    if s <= 0 or n < 2:
+        return 0.0
+    p = [wi/s for wi in w]
+    hhi = sum(pi*pi for pi in p)
+    return (hhi - 1/n) / (1 - 1/n)
 
-def parse_metrics_fixed(trial_output: dict) -> tuple[float, dict]:
-    norm_ifn = 1.0 - (1.0 / float(trial_output["ifn"]))
+def penalty_precision(gamma_1: float, gamma_2: float) -> float:
+    gamma_1_panelty = abs(gamma_1 - 1.0)**2
+    gamma_2_panelty = abs(gamma_2 - 1.0)**2
+    return mean([gamma_1_panelty, gamma_2_panelty])
+
+
+def parse_metrics_fixed(trial_output: dict, w: list, gamma_1: float, gamma_2: float) -> tuple[float, dict]:
+    norm_ifn = float(trial_output["ifn"]) / (float(trial_output["n_methods"]) / float(trial_output["n_micros"]))
     norm_cohesion = 1.0 - trial_output["cohesion_fixed"]
     norm_coupling = float(trial_output["avg_cop_fixed"]) / (float(trial_output["total_w_fixed"]) / float(trial_output["n_micros"]))
     norm_mcalls = float(trial_output["n_calls"]) / float(trial_output["n_calls_global"])
     norm_refs = float(trial_output["n_refs"]) / float(trial_output["n_refs_global"])
-    avg =  mean([norm_cohesion, norm_coupling, norm_ifn, norm_mcalls, norm_refs])
+
+    penalty_prec = penalty_precision(gamma_1, gamma_2)
+    penalty_w = penalty_hhi(w)
+    penalty = mean([penalty_prec, penalty_w])
+    avg =  mean([norm_cohesion, norm_coupling, norm_ifn, norm_mcalls, norm_refs, penalty])
     trail_data = dict(trial_output)
     trail_data.update({"norm_ifn": norm_ifn,
                        "norm_cohesion": norm_cohesion,
                        "norm_coupling": norm_coupling,
                        "norm_mcalls": norm_mcalls,
                        "norm_refs": norm_refs,
-                       "avg": avg})
+                       "avg": avg,
+                       "penalty_w": penalty_w,
+                       "penalty": penalty,
+                       "penalty_prec": penalty_prec})
     return avg, trail_data
 
 
@@ -102,7 +116,8 @@ def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_
             kernel_shutdown_timeout=5
         )
         os.makedirs(f'trails/{project["name"]}', exist_ok=True)
-        avg, diagnostics = parse_metrics_fixed(sb.read_notebook(f"outputs/output_step_2_{project["name"]}.ipynb").scraps.data_dict)
+        output = sb.read_notebook(f"outputs/output_step_2_{project["name"]}.ipynb").scraps.data_dict
+        avg, diagnostics = parse_metrics_fixed(output, [w_uses,w_references,w_extends,w_persists,w_calls], precision_1, precision_2)
         with open(f"trails/{project['name']}/{trail_idx}.json", "w") as f:
             json.dump(diagnostics, f)
         print(f"finished executing {project['name']}, {avg=}", file=sys.stderr)
@@ -111,6 +126,7 @@ def run_and_collect_metrics(project: dict, w_persists: float, w_calls: float, w_
     except Exception as e:
         raise ValueError(f"Exception from project {project['name']} {w_persists}, {w_calls}, {w_uses}, {w_references}, {w_extends}") from e
 
+@retry(stop=stop_after_attempt(2))
 def run_with_extended_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float, w_extends: float, precision_1: float, precision_2: float, trail_idx: int):
     try:
         with open("projects.json", "r") as f:
@@ -127,7 +143,7 @@ def run_with_extended_weights(w_persists: float, w_calls: float, w_uses: float, 
 
 def run_with_weights(w_persists: float, w_calls: float, w_uses: float, w_references: float, precision_1: float, precision_2: float, trail_idx: int):
     w_extends = 1 - w_persists - w_calls - w_uses - w_references
-    return run_with_extended_weights(w_persists, w_calls, w_uses, w_references, w_extends, precision_1, precision_2)
+    return run_with_extended_weights(w_persists, w_calls, w_uses, w_references, w_extends, precision_1, precision_2, trail_idx)
 
 generation_strat = GenerationStrategy(steps=[
     GenerationStep(generator=Generators.SOBOL,            num_trials=8),
