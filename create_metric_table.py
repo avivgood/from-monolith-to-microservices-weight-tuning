@@ -20,8 +20,7 @@ from typing import Dict, Optional, Tuple, List
 # ---- Configuration ----
 
 PROJECT_HIGHLIGHT_NAMES = {
-    "spring-boot-admin",   # exact dir name shown in your tree
-    "springboot-admin",    # user-typed alias; we’ll treat both as highlight triggers
+    "min"
 }
 
 IMPROVEMENT_CANDIDATES = [
@@ -31,11 +30,11 @@ IMPROVEMENT_CANDIDATES = [
 # metric_key -> (Pretty Header, decimals_for_values)
 METRICS = {
     "n_micros":   (r"\# Services", 0),
-    "avg_cop":    (r"Avg Coupling $\downarrow$", 2),
+    "avg_cop":    (r"Coupling $\downarrow$", 2),
     "cohesion":   (r"Cohesion $\uparrow$", 3),
-    "ifn":        (r"IFN", 2),
-    "n_calls":    (r"Calls", 0),
-    "n_refs":     (r"Refs", 0),
+    "ifn":        (r"IFN $\downarrow$", 2),
+    "n_calls":    (r"\# Calls $\downarrow$", 0),
+    "n_refs":     (r"\# Refs $\downarrow$", 0),
 }
 
 # For some keys, allow fallback to "*_fixed" variant if primary missing
@@ -165,17 +164,21 @@ def build_table(projects: List[Tuple[str, Dict, Optional[Dict]]]) -> str:
             # aggregates
             baseline_values[k].append(bval)
             improvement_values[k].append(ival)
+            if bval is not None and abs(bval) <= 0.001:
+                bval = 0
+            if ival is not None and abs(ival) <= 0.001:
+                ival = 0
             if bval is not None and ival is not None:
                 paired_delta_pct[k].append((ival - bval) / (bval if bval != 0 else 1.0) * 100.0)
             else:
                 paired_delta_pct[k].append(None)
 
-        proj_label = latex_escape(name)
+        proj_label = latex_escape(name)[:-3]
         highlight_trigger = name in PROJECT_HIGHLIGHT_NAMES
         row_prefix = r"\rowcolor{yellow!12} " if highlight_trigger else ""
-        proj_disp = r"\textbf{" + proj_label + r"} (validation)" if "spring-boot-admin" in name or "springboot-admin" in name else proj_label
-        if "spring-boot-admin" in name or "springboot-admin" in name:
-            proj_disp = r"\textbf{" + proj_label + r"} (validation)"
+        proj_disp = r"\textbf{" + proj_label + r"}" if "spring-boot-admin" in name or "springboot-admin" in name else proj_label
+        if "min" in name:
+            proj_disp = r"\textbf{" + proj_label + r"}"
 
         body_lines.append(
             f"{row_prefix}{proj_disp} & " + " & ".join(cells) + r" \\"
@@ -187,7 +190,7 @@ def build_table(projects: List[Tuple[str, Dict, Optional[Dict]]]) -> str:
         decimals = METRICS[k][1]
         bmean = mean(baseline_values[k])
         imean = mean(improvement_values[k])
-        dpmean = mean([x for x in paired_delta_pct[k] if x is not None])
+        dpmean = (imean - bmean) / (bmean if bmean != 0 else 1.0) * 100.0
         if bmean is not None and imean is not None:
             cell = rf"${format_num(bmean, decimals)}\to {format_num(imean, decimals)}$ ({(dpmean if dpmean is not None else 0):+.1f}\%)"
         elif bmean is not None:
@@ -211,7 +214,7 @@ def build_table(projects: List[Tuple[str, Dict, Optional[Dict]]]) -> str:
     lines.append(r"\setlength{\tabcolsep}{4pt}")
     lines.append(r"\renewcommand{\arraystretch}{1.1}")
     lines.append(r"\centering")
-    lines.append(r"\caption{Baseline vs.~Improvement across systems. Cells show $B\to I$ and $\Delta\%$ relative to Baseline. Validation system highlighted.}")
+    lines.append(r"\caption{Baseline vs.~Improvement across systems. Cells show $B\to I$ and $\Delta\%$ relative to Baseline. Validation system highlighted. Project names truncated to the last 3 letters.}")
     lines.append(r"\begin{tabularx}{\textwidth}{" + colspec + "}")
     lines.append(r"\toprule")
     lines.append(" & ".join(headers) + r" \\")
@@ -226,7 +229,7 @@ def build_table(projects: List[Tuple[str, Dict, Optional[Dict]]]) -> str:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--root", type=Path, default=Path("../trails"), help="Root directory containing project subdirectories")
+    ap.add_argument("--root", type=Path, default=Path("trails"), help="Root directory containing project subdirectories")
     ap.add_argument("--out", type=Path, default=None, help="Write LaTeX to this file; defaults to stdout")
     args = ap.parse_args()
 
